@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">FridgAndroid</string>
-    
-    <string-array name="list_array">
-        <item>View a List</item>
-        <item>Pantry</item>
-        <item>Grocery</item>
-        <item>Everything</item>
+
+    <string-array name="pantry_array">
+        <item></item>
     </string-array>
 </resources>
