@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PantryActivity extends Activity {
+public class PantryActivity extends AppCompatActivity { //tutorial had this as "Activity". Does this matter?
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
