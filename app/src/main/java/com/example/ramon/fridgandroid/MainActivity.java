@@ -6,41 +6,45 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    @Bind(R.id.pantryButton) Button mPantryButton;
+    @Bind(R.id.everythingButton) Button mEverythingButton;
+    @Bind (R.id.groceryButton) Button mGroceryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.listSpinner);
+        mPantryButton.setOnClickListener(this);
+        mEverythingButton.setOnClickListener(this);
+        mGroceryButton.setOnClickListener(this);
+    }
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.list_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String spinner_list_value = spinner.getSelectedItem().toString();
-                if (spinner_list_value.equals("Check Pantry")) {
-                    Intent intent = new Intent(MainActivity.this, PantryActivity.class);
-                    startActivity(intent);
-                } else if (spinner_list_value.equals("Check Grocery List")) {
-                    Intent intent = new Intent(MainActivity.this, GroceryActivity.class);
-                    startActivity(intent);
-                } else if (spinner_list_value.equals("Check Everything")) {
-                    Intent intent = new Intent(MainActivity.this, EverythingActivity.class);
-                    startActivity(intent);
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.pantryButton:
+                Intent intentPantry = new Intent(MainActivity.this, PantryActivity.class);
+                startActivity(intentPantry);
+                break;
+            case R.id.everythingButton:
+                Intent intentEverything = new Intent(MainActivity.this, EverythingActivity.class);
+                startActivity(intentEverything);
+                break;
+            case R.id.groceryButton:
+                Intent intentGrocery = new Intent(MainActivity.this, GroceryActivity.class);
+                startActivity(intentGrocery);
+                break;
+            default:
+                break;
+        }
     }
 }
