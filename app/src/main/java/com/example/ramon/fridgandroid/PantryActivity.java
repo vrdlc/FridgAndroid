@@ -43,6 +43,7 @@ public class PantryActivity extends AppCompatActivity { //tutorial had this as "
         listDataHeader.add("Milk");
 
         //adding child data
+
         List<String> cookies = new ArrayList<String>();
         cookies.add("3");
         cookies.add("One bag oatmeal, two bags choc chip");
