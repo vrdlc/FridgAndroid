@@ -1,8 +1,10 @@
 package com.example.ramon.fridgandroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
@@ -10,11 +12,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PantryActivity extends AppCompatActivity { //tutorial had this as "Activity". Does this matter?
-
+    //THESE ARE FOR THE EXPANDABLE LIST VIEW
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+
+    //THESE PULL ARRAYS FROM MAINACTIVITY.JAVA
+    private ArrayList<String> newPantryName;
+    private ArrayList<String> newPantryQuantity;
+    private ArrayList<String> newPantryNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,4 +68,19 @@ public class PantryActivity extends AppCompatActivity { //tutorial had this as "
         listDataChild.put(listDataHeader.get(2), milk);
 
     }
+
+    Intent intent = getIntent();
+
+    ArrayList<String> getNewPantryName = intent.getStringArrayListExtra("newPantryName");
+    ArrayList<String> getNewPantryQuantity = intent.getStringArrayListExtra("newPantryQuantity");
+    ArrayList<String> getNewPantryNotes = intent.getStringArrayListExtra("newPantryNotes");
+
+//    ArrayAdapter nameAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, newPantryName);
+//    ArrayAdapter quantityAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, newPantryQuantity);
+//    ArrayAdapter notesAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, newPantryNotes);
+//    listDataHeader.setAdapter(nameAdapter);
+//    listDataChild.setAdapter(quantityAdapter);
+//    listDataChild.setAdapter(notesAdapter);
+
+
 }

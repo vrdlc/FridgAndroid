@@ -22,11 +22,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind (R.id.addToPantry) Button mAddToPantry;
     @Bind (R.id.addToGrocery) Button mAddToGrocery;
 
-//    @Bind (R.id.nameEditText) EditText mNameEditText;
-//    @Bind (R.id.quantityEditText) EditText mQuantityEditText;
-//    @Bind (R.id.notesEditText) EditText mNotesEditText;
+    @Bind (R.id.nameEditText) EditText mNameEditText;
+    @Bind (R.id.quantityEditText) EditText mQuantityEditText;
+    @Bind (R.id.notesEditText) EditText mNotesEditText;
 
-    private ArrayList<String> newItem= new ArrayList<>();
+    private ArrayList<String> newPantryName = new ArrayList<>();
+    private ArrayList<String> newPantryQuantity = new ArrayList<>();
+    private ArrayList<String> newPantryNotes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPantryButton.setOnClickListener(this);
         mEverythingButton.setOnClickListener(this);
         mGroceryButton.setOnClickListener(this);
-//        mAddToPantry.setOnClickListener(this);
-//        mAddToGrocery.setOnClickListener(this);
+        mAddToPantry.setOnClickListener(this);
+        mAddToGrocery.setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.pantryButton:
                 Intent intentPantry = new Intent(MainActivity.this, PantryActivity.class);
+                intentPantry.putStringArrayListExtra("newPantryName", newPantryName);
+                intentPantry.putStringArrayListExtra("newPantryQuantity", newPantryQuantity);
+                intentPantry.putStringArrayListExtra("newPantryNotes", newPantryNotes);
                 startActivity(intentPantry);
                 break;
             case R.id.everythingButton:
@@ -56,11 +61,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentGrocery = new Intent(MainActivity.this, GroceryActivity.class);
                 startActivity(intentGrocery);
                 break;
-//            case R.id.addToPantry:
-//                String name = mNameEditText.getText().toString();
-//                int quantity = Integer.parseInt(mQuantityEditText.getText().toString());
-//                String notes = mNotesEditText.getText().toString();
-//                newItem.add(name);
+            case R.id.addToPantry:
+                String name = mNameEditText.getText().toString();
+                String quantity = mQuantityEditText.getText().toString();
+                String notes = mNotesEditText.getText().toString();
+                newPantryName.add(name);
+                newPantryQuantity.add(quantity);
+                newPantryNotes.add(notes);
+                mNameEditText.setText("");
+                mQuantityEditText.setText("");
+                mNotesEditText.setText("");
 
             default:
                 break;
