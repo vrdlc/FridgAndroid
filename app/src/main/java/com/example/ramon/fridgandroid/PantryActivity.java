@@ -69,11 +69,11 @@ public class PantryActivity extends AppCompatActivity { //tutorial had this as "
 
     }
 
-    Intent intent = getIntent();
-
-    ArrayList<String> getNewPantryName = intent.getStringArrayListExtra("newPantryName");
-    ArrayList<String> getNewPantryQuantity = intent.getStringArrayListExtra("newPantryQuantity");
-    ArrayList<String> getNewPantryNotes = intent.getStringArrayListExtra("newPantryNotes");
+//    Intent intent = getIntent();
+//
+//    ArrayList<String> getNewPantryName = intent.getStringArrayListExtra("newPantryName");
+//    ArrayList<String> getNewPantryQuantity = intent.getStringArrayListExtra("newPantryQuantity");
+//    ArrayList<String> getNewPantryNotes = intent.getStringArrayListExtra("newPantryNotes");
 
 //    ArrayAdapter nameAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, newPantryName);
 //    ArrayAdapter quantityAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, newPantryQuantity);
