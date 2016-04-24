@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -26,9 +25,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind (R.id.quantityEditText) EditText mQuantityEditText;
     @Bind (R.id.notesEditText) EditText mNotesEditText;
 
-    private ArrayList<String> newPantryName = new ArrayList<>();
-    private ArrayList<String> newPantryQuantity = new ArrayList<>();
-    private ArrayList<String> newPantryNotes = new ArrayList<>();
+//    private ArrayList<String> newPantryName = new ArrayList<>();
+//    private ArrayList<String> newPantryQuantity = new ArrayList<>();
+//    private ArrayList<String> newPantryNotes = new ArrayList<>();
+    //I MIGHT NEED THESE ARRAYS LATER WHEN I LOAD FROM DATABASE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.pantryButton:
                 Intent intentPantry = new Intent(MainActivity.this, PantryActivity.class);
-                intentPantry.putStringArrayListExtra("newPantryName", newPantryName);
-                intentPantry.putStringArrayListExtra("newPantryQuantity", newPantryQuantity);
-                intentPantry.putStringArrayListExtra("newPantryNotes", newPantryNotes);
-                startActivity(intentPantry);
                 break;
             case R.id.everythingButton:
                 Intent intentEverything = new Intent(MainActivity.this, EverythingActivity.class);
@@ -65,13 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String name = mNameEditText.getText().toString();
                 String quantity = mQuantityEditText.getText().toString();
                 String notes = mNotesEditText.getText().toString();
-                newPantryName.add(name);
-                newPantryQuantity.add(quantity);
-                newPantryNotes.add(notes);
-                mNameEditText.setText("");
-                mQuantityEditText.setText("");
-                mNotesEditText.setText("");
 
+                Intent intent = new Intent(MainActivity.this, PantryActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("quantity", quantity);
+                intent.putExtra("notes", notes);
+                startActivity(intent);
             default:
                 break;
         }

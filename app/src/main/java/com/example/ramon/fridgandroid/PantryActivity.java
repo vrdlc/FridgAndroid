@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,15 +22,36 @@ public class PantryActivity extends AppCompatActivity { //tutorial had this as "
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
-    //THESE PULL ARRAYS FROM MAINACTIVITY.JAVA
-    private ArrayList<String> newPantryName;
-    private ArrayList<String> newPantryQuantity;
-    private ArrayList<String> newPantryNotes;
+
+    private TextView mNameTextView;
+    private TextView mQuantityTextView;
+    private TextView mNotesTextView;
+
+//    Intent intent = getIntent();
+//    ArrayList<String> newPantryName = intent.getStringArrayListExtra("newPantryName");
+//    ArrayList<String> newPantryQuantity = intent.getStringArrayListExtra("newPantryQuantity");
+//    ArrayList<String> newPantryNotes = intent.getStringArrayListExtra("newPantryNotes");
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantry);
+
+//------------- DEMOING ABILITY TO PASS DATA BETWEEN ACTIVITIES HERE -------------
+        mNameTextView = (TextView) findViewById(R.id.nameTextView);
+        mQuantityTextView = (TextView) findViewById(R.id.quantityTextView);
+        mNotesTextView = (TextView) findViewById(R.id.notesTextView);
+
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
+        String quantity = intent.getStringExtra("quantity");
+        String notes = intent.getStringExtra("notes");
+        mNameTextView.setText(name);
+        mQuantityTextView.setText("x " + quantity);
+        mNotesTextView.setText(notes);
+
 
         //get the listview
         expListView = (ExpandableListView) findViewById(R.id.pantryExpandList);
