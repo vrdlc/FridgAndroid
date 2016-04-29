@@ -8,7 +8,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -30,17 +35,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    private ArrayList<String> newPantryNotes = new ArrayList<>();
     //I MIGHT NEED THESE ARRAYS LATER WHEN I LOAD FROM DATABASE
 
+    //THIS IS FOR LOCAL STORAGE!!
+    EditText textmsg;
+    static final int READ_BLOCK_SIZE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        textmsg=(EditText)findViewById(R.id.nameEditText);//LOCAL SAVE
+
         mPantryButton.setOnClickListener(this);
         mEverythingButton.setOnClickListener(this);
         mGroceryButton.setOnClickListener(this);
-        mAddToPantry.setOnClickListener(this);
-        mAddToGrocery.setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.pantryButton:
                 Intent intentPantry = new Intent(MainActivity.this, PantryActivity.class);
+                startActivity(intentPantry);
                 break;
             case R.id.everythingButton:
                 Intent intentEverything = new Intent(MainActivity.this, EverythingActivity.class);
@@ -70,5 +80,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    public void WriteBtn(View view) { //LOCAL SAVE
+        try {
+            FileOutputStream fileout=openFileOutput("mytextfile.txt", MODE_PRIVATE);
+            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+            outputWriter.write(textmsg.getText().toString());
+            outputWriter.close();
+
+            Toast.makeText(getBaseContext(), "Saved to Pantry List!", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ReadBtn(View v) {
+        try {
+            FileInputStream fileIn = openFileInput("mytextfile.txt");
+            InputStreamReader InputRead = new InputStreamReader(fileIn);
+
+            char[] inputBuffer = new char[READ_BLOCK_SIZE];
+            String s = "";
+            int charRead;
+
+            while ((charRead = InputRead.read(inputBuffer)) > 0) {
+                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
+                s += readstring;
+            }
+            InputRead.close();
+            textmsg.setText(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+    }
     }
 }

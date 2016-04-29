@@ -25,7 +25,9 @@
         android:id="@+id/pantryButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/everythingButton" />
+        android:layout_alignParentLeft="true"
+        android:layout_toStartOf="@+id/everythingButton"
+        android:layout_toLeftOf="@+id/everythingButton"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -44,6 +46,8 @@
         android:id="@+id/groceryButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/everythingButton"
         android:layout_toEndOf="@+id/everythingButton" />
 
     <EditText
@@ -54,6 +58,7 @@
         android:layout_above="@+id/quantityEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <requestFocus/>
 
     <EditText
         android:layout_width="match_parent"
@@ -78,6 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to Pantry List"
+        android:onClick="WriteBtn"
         android:id="@+id/addToPantry"
         android:layout_below="@+id/notesEditText"
         android:layout_alignParentLeft="true"
@@ -89,6 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to Grocery List"
+        android:onClick="ReadBtn"
         android:id="@+id/addToGrocery"
         android:layout_alignBottom="@+id/addToPantry"
         android:layout_alignParentRight="true"
