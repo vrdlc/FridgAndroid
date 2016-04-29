@@ -1,15 +1,13 @@
-package com.example.ramon.fridgandroid;
+package com.example.ramon.fridgandroid.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+
+import com.example.ramon.fridgandroid.adapters.ExpandableListAdapter;
+import com.example.ramon.fridgandroid.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,6 +90,12 @@ public class PantryActivity extends AppCompatActivity { //tutorial had this as "
         listDataChild.put(listDataHeader.get(1), bread);
         listDataChild.put(listDataHeader.get(2), milk);
 
+    }
+
+    //I THINK THIS IS WHERE THIS GOES...
+
+    public interface Listener {
+        void itemtoChange(String item);
     }
 
 //    Intent intent = getIntent();

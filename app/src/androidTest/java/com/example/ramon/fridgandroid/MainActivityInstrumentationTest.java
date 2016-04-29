@@ -2,6 +2,8 @@ package com.example.ramon.fridgandroid;
 
 import android.support.test.rule.ActivityTestRule;
 
+import com.example.ramon.fridgandroid.ui.MainActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 
