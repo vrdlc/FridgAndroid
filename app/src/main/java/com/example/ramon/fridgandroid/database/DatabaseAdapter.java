@@ -5,8 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.ramon.fridgandroid.Constants;
+import com.example.ramon.fridgandroid.models.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ramon on 4/30/16.
@@ -66,7 +71,7 @@ public class DatabaseAdapter {
     }
 
     //UPDATE
-    public long UPDATE(int id, String item_name, String item_quantity, String item_notes) {
+    public long update(int id, String item_name, String item_quantity, String item_notes) {
         try {
             ContentValues cv = new ContentValues();
             cv.put(Constants.ITEM_NAME, item_name);
@@ -82,7 +87,7 @@ public class DatabaseAdapter {
     }
 
     //DELETE
-    public long Delete(int id) {
+    public long delete(int id) {
         try {
             return db.delete(Constants.TABLE_NAME, Constants.ROW_ID + "=?", new String[] { String.valueOf(id)});
         } catch (SQLException e) {

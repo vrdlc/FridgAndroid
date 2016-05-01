@@ -8,7 +8,7 @@ public class Item {
     private String item_name, item_quantity, item_notes;
     private int id;
 
-    public Item(String item_name, String item_quantity, String item_notes, int id) {
+    public Item() {
         this.item_name = item_name;
         this.item_quantity = item_quantity;
         this.item_notes= item_notes;
@@ -29,6 +29,18 @@ public class Item {
 
     public int getId() {
         return id;
+    }
+
+    public void setItemName(String item_name) {
+        this.item_name = item_name;
+    }
+
+    public void setItemQuantity(String item_quantity) {
+        this.item_quantity = item_quantity;
+    }
+
+    public void setItemNotes(String item_notes) {
+        this.item_notes = item_notes;
     }
 
     public void setId(int id) {

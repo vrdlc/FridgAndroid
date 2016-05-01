@@ -6,8 +6,13 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.ramon.fridgandroid.Constants;
+import com.example.ramon.fridgandroid.models.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ramon on 4/30/16.
@@ -35,23 +40,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-//    //TRYING ANDROIDLOVERS TUTORIAL...
-//    public void insertRow(String item_name, String item_quantity, String item_notes) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cn = new ContentValues();
-//
-//        cn.put("item_name", item_name);
-//        cn.put("item_quantity", item_quantity);
-//        cn.put("item_notes", item_notes);
-//        db.insert("Item", null, cn);
-//    }
-//
-    public Cursor get() {
-        SQLiteDatabase db = this.getReadableDatabase();
+    public List<Item> get() {
+        List<Item> items = new ArrayList<Item>();
+        String query = "SELECT * FROM " + "table_name"; //MAYBE SOMETHING ELSE...
 
-        String str ="SELECT * FROM TABLE_NAME";
-        Cursor cursor = db.rawQuery(str, null);
-        cursor.moveToFirst();
-        return cursor;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Item item = new Item();
+                item.setItemName(cursor.getString(0));
+                item.setItemQuantity(cursor.getString(1));
+                item.setItemNotes(cursor.getString(2));
+
+                items.add(item);
+            } while (cursor.moveToNext());
+        }
+
+        Log.v("Data", items.toString());
+
+        return items;
+
     }
+//
+//    public Cursor get() {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        String str ="SELECT * FROM TABLE_NAME";
+//        Cursor cursor = db.rawQuery(str, null);
+//        cursor.moveToFirst();
+//        return cursor;
+//    }
 }
