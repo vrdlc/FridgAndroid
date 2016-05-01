@@ -1,14 +1,17 @@
-package com.example.ramon.fridgandroid;
+package com.example.ramon.fridgandroid.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
+import com.example.ramon.fridgandroid.adapters.ExpandableListAdapter;
+import com.example.ramon.fridgandroid.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class EverythingActivity extends AppCompatActivity {
+public class GroceryActivity extends AppCompatActivity {
 
 
     ExpandableListAdapter listAdapter;
@@ -20,9 +23,9 @@ public class EverythingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_everything);
+        setContentView(R.layout.activity_grocery);
 
-        expListView = (ExpandableListView) findViewById(R.id.everythingExpandList);
+        expListView = (ExpandableListView) findViewById(R.id.groceryExpandList);
         //preparing list data
         prepareListData();
 
@@ -38,9 +41,6 @@ public class EverythingActivity extends AppCompatActivity {
         listDataChild = new HashMap<String, List<String>>();
 
         //adding child data
-        listDataHeader.add("Cookies");
-        listDataHeader.add("Bread");
-        listDataHeader.add("Milk");
         listDataHeader.add("Eggs");
         listDataHeader.add("Chicken Thighs");
         listDataHeader.add("Ground Beef");
@@ -58,23 +58,11 @@ public class EverythingActivity extends AppCompatActivity {
         groundBeef.add("1");
         groundBeef.add("one lb, lean");
 
-        List<String> cookies = new ArrayList<String>();
-        cookies.add("3");
-        cookies.add("One bag oatmeal, two bags choc chip");
-
-        List<String> bread = new ArrayList<String>();
-        bread.add("2");
-        bread.add("One whole wheat, one sourdough");
-
-        List<String> milk = new ArrayList<String>();
-        milk.add("2");
-        milk.add("one gallon whole, one gallon unsweetened soy");
-
         listDataChild.put(listDataHeader.get(0), eggs);
         listDataChild.put(listDataHeader.get(1), chickenThighs);
         listDataChild.put(listDataHeader.get(2), groundBeef);
-        listDataChild.put(listDataHeader.get(3), cookies);
-        listDataChild.put(listDataHeader.get(4), bread);
-        listDataChild.put(listDataHeader.get(5), milk);
+
     }
-}
+
+    }
+

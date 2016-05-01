@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ramon.fridgandroid.PantryActivity"
+    tools:context=".ui.PantryActivity"
     android:background="#BFBFBF">
 
 
@@ -36,10 +36,24 @@
         android:layout_gravity="left|center_horizontal"
         android:textSize="30sp" />
 
-            <ExpandableListView
-                android:id="@+id/pantryExpandList"
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Item"
+        android:id="@+id/updateButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Item"
+        android:id="@+id/deleteButton" />
+
+    <android.support.v7.widget.RecyclerView
+                android:id="@+id/pantryRecycler"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                class="android.support.v7.widget.RecyclerView"/>
 
 
 

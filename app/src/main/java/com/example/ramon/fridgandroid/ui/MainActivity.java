@@ -1,20 +1,19 @@
-package com.example.ramon.fridgandroid;
+package com.example.ramon.fridgandroid.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.ramon.fridgandroid.R;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,22 +29,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind (R.id.quantityEditText) EditText mQuantityEditText;
     @Bind (R.id.notesEditText) EditText mNotesEditText;
 
-//    private ArrayList<String> newPantryName = new ArrayList<>();
-//    private ArrayList<String> newPantryQuantity = new ArrayList<>();
-//    private ArrayList<String> newPantryNotes = new ArrayList<>();
-    //I MIGHT NEED THESE ARRAYS LATER WHEN I LOAD FROM DATABASE
-
-    //THIS IS FOR LOCAL STORAGE!!
-    EditText textmsg;
-    static final int READ_BLOCK_SIZE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        textmsg=(EditText)findViewById(R.id.nameEditText);//LOCAL SAVE
 
         mPantryButton.setOnClickListener(this);
         mEverythingButton.setOnClickListener(this);
@@ -72,47 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String quantity = mQuantityEditText.getText().toString();
                 String notes = mNotesEditText.getText().toString();
 
-                Intent intent = new Intent(MainActivity.this, PantryActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("quantity", quantity);
-                intent.putExtra("notes", notes);
-                startActivity(intent);
+                //DO save AND retrieve GO HERE? I NEED THIS BUTTON TO SAVE DATA
+
             default:
                 break;
         }
     }
 
-    public void WriteBtn(View view) { //LOCAL SAVE
-        try {
-            FileOutputStream fileout=openFileOutput("mytextfile.txt", MODE_PRIVATE);
-            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-            outputWriter.write(textmsg.getText().toString());
-            outputWriter.close();
 
-            Toast.makeText(getBaseContext(), "Saved to Pantry List!", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void ReadBtn(View v) {
-        try {
-            FileInputStream fileIn = openFileInput("mytextfile.txt");
-            InputStreamReader InputRead = new InputStreamReader(fileIn);
-
-            char[] inputBuffer = new char[READ_BLOCK_SIZE];
-            String s = "";
-            int charRead;
-
-            while ((charRead = InputRead.read(inputBuffer)) > 0) {
-                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
-                s += readstring;
-            }
-            InputRead.close();
-            textmsg.setText(s);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-    }
-    }
 }

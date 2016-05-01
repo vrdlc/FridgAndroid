@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,20 +17,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PantryActivity">
+        <activity android:name=".ui.PantryActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.ramon.fridgandroid.MainActivity"/>
+            android:value=".ui.MainActivity"/>
         </activity>
-        <activity android:name=".GroceryActivity">
+        <activity android:name=".ui.GroceryActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.ramon.fridgandroid.MainActivity"/>
+            android:value=".ui.MainActivity"/>
         </activity>
-        <activity android:name=".EverythingActivity">
+        <activity android:name=".ui.EverythingActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.ramon.fridgandroid.MainActivity"/>
+            android:value=".ui.MainActivity"/>
         </activity>
     </application>
 
