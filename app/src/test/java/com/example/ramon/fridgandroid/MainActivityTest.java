@@ -3,18 +3,19 @@ package com.example.ramon.fridgandroid;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.ramon.fridgandroid.ui.EverythingActivity;
+import com.example.ramon.fridgandroid.ui.GroceryActivity;
+import com.example.ramon.fridgandroid.ui.MainActivity;
+import com.example.ramon.fridgandroid.ui.PantryActivity;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowAbsSpinner;
 import org.robolectric.shadows.ShadowActivity;
 
 import static junit.framework.Assert.assertTrue;

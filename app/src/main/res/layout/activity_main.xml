@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ramon.fridgandroid.MainActivity"
+    tools:context=".ui.MainActivity"
     android:background="#BFBFBF">
 
     <TextView
@@ -25,7 +25,9 @@
         android:id="@+id/pantryButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/everythingButton" />
+        android:layout_alignParentLeft="true"
+        android:layout_toStartOf="@+id/everythingButton"
+        android:layout_toLeftOf="@+id/everythingButton"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -44,21 +46,24 @@
         android:id="@+id/groceryButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/everythingButton"
         android:layout_toEndOf="@+id/everythingButton" />
 
     <EditText
+        android:id="@+id/nameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nameEditText"
         android:hint="Item Name"
         android:layout_above="@+id/quantityEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <requestFocus/>
 
     <EditText
+        android:id="@+id/quantityEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/quantityEditText"
         android:hint="Quantity"
         android:inputType="number"
         android:layout_centerVertical="true"
@@ -66,19 +71,19 @@
         android:layout_alignParentStart="true" />
 
     <EditText
+        android:id="@+id/notesEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/notesEditText"
         android:hint="Notes"
         android:layout_below="@+id/quantityEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
+        android:id="@+id/addToPantry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to Pantry List"
-        android:id="@+id/addToPantry"
         android:layout_below="@+id/notesEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -86,10 +91,10 @@
         android:layout_toLeftOf="@+id/everythingButton" />
 
     <Button
+        android:id="@+id/addToGrocery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to Grocery List"
-        android:id="@+id/addToGrocery"
         android:layout_alignBottom="@+id/addToPantry"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
