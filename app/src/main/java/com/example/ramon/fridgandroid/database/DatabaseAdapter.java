@@ -25,7 +25,7 @@ public class DatabaseAdapter {
     //OPEN DB
     public DatabaseAdapter openDB() {
         try {
-            db =helper.getWritableDatabase();
+            db = helper.getWritableDatabase();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,8 +57,10 @@ public class DatabaseAdapter {
         return 0;
     }
 
-    //RETRIEVE ALL PLAYERS
-    public Cursor getAllPlayers() {
+
+
+    //RETRIEVE ALL ITEMS
+    public Cursor getAllItems() {
         String[] columns = { Constants.ROW_ID, Constants.ITEM_NAME, Constants.ITEM_QUANTITY, Constants.ITEM_NOTES };
         return db.query(Constants.TABLE_NAME, columns, null, null, null, null, null);
     }
