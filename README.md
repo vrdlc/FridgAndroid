@@ -1,3 +1,5 @@
+DON'T FORGET TO MAKE gradle.properties FILE AND PUT API KEYS/FIREBASE URLS/ETC INSIDE
+
 # _FridgAndroid App_
 Updating our Intro/Ember Fridg App for use on Android phones
 
