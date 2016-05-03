@@ -7,11 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
-import com.example.ramon.fridgandroid.database.DatabaseAdapter;
 import com.example.ramon.fridgandroid.models.Item;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.v("I WANT TO SEE THE DB",  "please");
                 break;
             case R.id.everythingButton:
-                Intent intentEverything = new Intent(MainActivity.this, ItemActivity.class);
+                Intent intentEverything = new Intent(MainActivity.this, ItemListActivity.class);
                 startActivity(intentEverything);
                 break;
             case R.id.groceryButton:

@@ -15,7 +15,7 @@ import com.firebase.client.Query;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItemActivity extends AppCompatActivity {
+public class ItemListActivity extends AppCompatActivity {
     private Query mQuery;
     private Firebase mFirebaseItemsRef;
     private FirebaseItemListAdapter mAdapter;
