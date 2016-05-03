@@ -7,11 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
-import com.example.ramon.fridgandroid.database.DatabaseAdapter;
 import com.example.ramon.fridgandroid.models.Item;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -53,20 +51,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAddToList.setOnClickListener(this);
 
         mSavedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
-        mSavedItemRefListener = mSavedItemRef.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                String items = dataSnapshot.getValue().toString();
-                Log.d("Item Saved", items);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+//        mSavedItemRefListener = mSavedItemRef.addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                String items = dataSnapshot.getValue().toString();
+//                Log.d("Item Saved", items);
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.v("I WANT TO SEE THE DB",  "please");
                 break;
             case R.id.everythingButton:
-                Intent intentEverything = new Intent(MainActivity.this, ItemActivity.class);
+                Intent intentEverything = new Intent(MainActivity.this, ItemListActivity.class);
                 startActivity(intentEverything);
                 break;
             case R.id.groceryButton:
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ref.push().setValue(mItem);
 //                Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
 
-                saveItemToFirebase(name);
+                saveItemToFirebase(name, quantity, notes);
                 mNameEditText.setText("");
                 mQuantityEditText.setText("");
                 mNotesEditText.setText("");
@@ -125,11 +123,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void saveItemToFirebase(String name) {
+    public void saveItemToFirebase(String name, String quantity, String notes) {
         Firebase savedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
 
+        Item item = new Item(name, quantity, notes);
+        Firebase itemRef = savedItemRef.push();
+        String id = itemRef.getKey();
+        item.setId(id);
+        itemRef.setValue(item);
+
         // DO I NEED THREE REFS HERE?
-        savedItemRef.push().setValue(name);
+        //savedItemRef.push().setValue(name);
 
     }
 
