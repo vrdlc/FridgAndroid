@@ -22,22 +22,19 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Firebase mSavedItemRef;
-    private ValueEventListener mSavedItemRefListener;
+//    private ValueEventListener mSavedItemRefListener;
     private Item mItem;
 
     @Bind(R.id.pantryButton) Button mPantryButton;
     @Bind(R.id.everythingButton) Button mEverythingButton;
     @Bind (R.id.groceryButton) Button mGroceryButton;
     @Bind (R.id.addToList) Button mAddToList;
-//    @Bind (R.id.addToGrocery) Button mAddToGrocery;
-
     @Bind (R.id.nameEditText) EditText mNameEditText;
     @Bind (R.id.quantityEditText) EditText mQuantityEditText;
     @Bind (R.id.notesEditText) EditText mNotesEditText;
 
 
-    //SQLITE DATABASEADAPTER CALLER
-//    final DatabaseAdapter db = new DatabaseAdapter(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSavedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mSavedItemRef.removeEventListener(mSavedItemRefListener);
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        mSavedItemRef.removeEventListener(mSavedItemRefListener);
+//    } DO I NEED THIS? I AM CURRENTLY NOT USING A VALUE EVENT LISTENER, BUT DO I NEED TO?
 
     @Override
     public void onClick(View v) {
