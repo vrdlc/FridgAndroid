@@ -8,39 +8,37 @@ import org.parceler.Parcel;
 @Parcel
 public class Item {
 
-    private String item_name;
-    private String item_quantity;
-    private String item_notes;
-    private int id;
+    private String itemName;
+    private String itemQuantity;
+    private String itemNotes;
+    private String id;
 
     public Item() {
-
     }
 
-    public Item(String item_name, String item_quantity, String item_notes, int id) {
-        this.item_name = item_name;
-        this.item_quantity = item_quantity;
-        this.item_notes= item_notes;
-        this.id= id;
+    public Item(String item_name, String item_quantity, String item_notes) {
+        this.itemName = item_name;
+        this.itemQuantity = item_quantity;
+        this.itemNotes = item_notes;
     }
 
     public String getItemName() {
-        return item_name;
+        return itemName;
     }
 
     public String getItemQuantity() {
-        return item_quantity;
+        return itemQuantity;
     }
 
     public String getItemNotes() {
-        return item_notes;
+        return itemNotes;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

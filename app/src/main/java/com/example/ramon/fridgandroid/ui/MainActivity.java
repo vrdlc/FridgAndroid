@@ -51,20 +51,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAddToList.setOnClickListener(this);
 
         mSavedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
-        mSavedItemRefListener = mSavedItemRef.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                String items = dataSnapshot.getValue().toString();
-                Log.d("Item Saved", items);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+//        mSavedItemRefListener = mSavedItemRef.addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                String items = dataSnapshot.getValue().toString();
+//                Log.d("Item Saved", items);
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ref.push().setValue(mItem);
 //                Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
 
-                saveItemToFirebase(name);
+                saveItemToFirebase(name, quantity, notes);
                 mNameEditText.setText("");
                 mQuantityEditText.setText("");
                 mNotesEditText.setText("");
@@ -123,11 +123,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void saveItemToFirebase(String name) {
+    public void saveItemToFirebase(String name, String quantity, String notes) {
         Firebase savedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
 
+        Item item = new Item(name, quantity, notes);
+        Firebase itemRef = savedItemRef.push();
+        String id = itemRef.getKey();
+        item.setId(id);
+        itemRef.setValue(item);
+
         // DO I NEED THREE REFS HERE?
-        savedItemRef.push().setValue(name);
+        //savedItemRef.push().setValue(name);
 
     }
 
