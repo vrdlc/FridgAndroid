@@ -80,10 +80,10 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/addToPantry"
+        android:id="@+id/addToList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add to Pantry List"
+        android:text="Add to List"
         android:layout_below="@+id/notesEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to Grocery List"
-        android:layout_alignBottom="@+id/addToPantry"
+        android:layout_alignBottom="@+id/addToList"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/everythingButton"
