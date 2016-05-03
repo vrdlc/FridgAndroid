@@ -9,30 +9,36 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.database.DatabaseAdapter;
-import com.example.ramon.fridgandroid.database.DatabaseHelper;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import com.example.ramon.fridgandroid.models.Item;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private Firebase mSavedItemRef;
+    private ValueEventListener mSavedItemRefListener;
+    private Item mItem;
+
     @Bind(R.id.pantryButton) Button mPantryButton;
     @Bind(R.id.everythingButton) Button mEverythingButton;
     @Bind (R.id.groceryButton) Button mGroceryButton;
-    @Bind (R.id.addToPantry) Button mAddToPantry;
-    @Bind (R.id.addToGrocery) Button mAddToGrocery;
+    @Bind (R.id.addToList) Button mAddToList;
+//    @Bind (R.id.addToGrocery) Button mAddToGrocery;
 
     @Bind (R.id.nameEditText) EditText mNameEditText;
     @Bind (R.id.quantityEditText) EditText mQuantityEditText;
     @Bind (R.id.notesEditText) EditText mNotesEditText;
 
-    final DatabaseAdapter db = new DatabaseAdapter(this);
+
+    //SQLITE DATABASEADAPTER CALLER
+//    final DatabaseAdapter db = new DatabaseAdapter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPantryButton.setOnClickListener(this);
         mEverythingButton.setOnClickListener(this);
         mGroceryButton.setOnClickListener(this);
-        mAddToPantry.setOnClickListener(this);
+        mAddToList.setOnClickListener(this);
+
+        mSavedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+        mSavedItemRefListener = mSavedItemRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String items = dataSnapshot.getValue().toString();
+                Log.d("Item Saved", items);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSavedItemRef.removeEventListener(mSavedItemRefListener);
     }
 
     @Override
@@ -56,36 +84,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.v("I WANT TO SEE THE DB",  "please");
                 break;
             case R.id.everythingButton:
-                Intent intentEverything = new Intent(MainActivity.this, EverythingActivity.class);
+                Intent intentEverything = new Intent(MainActivity.this, ItemActivity.class);
                 startActivity(intentEverything);
                 break;
             case R.id.groceryButton:
                 Intent intentGrocery = new Intent(MainActivity.this, GroceryActivity.class);
                 startActivity(intentGrocery);
                 break;
-            case R.id.addToPantry:
+            case R.id.addToList:
                 String name = mNameEditText.getText().toString();
                 String quantity = mQuantityEditText.getText().toString();
                 String notes = mNotesEditText.getText().toString();
 
-                Log.v("this", "sucks");
+                Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+                ref.push().setValue(mItem);
+//                Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
 
-                //DO save AND retrieve GO HERE? I NEED THIS BUTTON TO SAVE DATA
-                db.openDB();
-
-                db.add(name, quantity, notes);
-                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
-
-                //HERE WE CAN PUT
-                //name.setText(""); ETC IF IT ALL WORKS
-
-                db.close();
+                saveItemToFirebase(name);
+                mNameEditText.setText("");
+                mQuantityEditText.setText("");
+                mNotesEditText.setText("");
 
 
+                //SHARED PREFERENCES
+                //if(!(name).equals("")) {
+                //  addToSharedPreferences(name);
+                //}
+
+
+                //LOCAL SQLITE DATABASE
+//                db.openDB();
+//
+//                db.add(name, quantity, notes);
+//                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+//
+//                db.close();
 
             default:
                 break;
         }
+    }
+
+    public void saveItemToFirebase(String name) {
+        Firebase savedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+
+        // DO I NEED THREE REFS HERE?
+        savedItemRef.push().setValue(name);
+
     }
 
 
