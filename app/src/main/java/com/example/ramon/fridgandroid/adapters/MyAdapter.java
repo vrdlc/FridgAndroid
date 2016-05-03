@@ -12,7 +12,7 @@ import com.example.ramon.fridgandroid.ItemClickListener;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.holders.MyHolder;
 import com.example.ramon.fridgandroid.models.Item;
-import com.example.ramon.fridgandroid.ui.PantryActivity;
+import com.example.ramon.fridgandroid.ui.PantryListActivity;
 
 import java.util.ArrayList;
 
@@ -34,7 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int ViewType) {
         //VIEW OBJECT FROM XML
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_pantry, null);// activity_pantry WAS model.xml. DO I NEED THAT INSTEAD?
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_pantry_list, null);// activity_pantry_list WAS model.xml. DO I NEED THAT INSTEAD?
 
         //HOLDER
         MyHolder holder = new MyHolder(v);
@@ -58,7 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
                 //CREATE INTENT
 
-                Intent intent = new Intent(c, PantryActivity.class);
+                Intent intent = new Intent(c, PantryListActivity.class);
 
                 //LOAD DATA
                 intent.putExtra("ITEM_NAME", items.get(pos).getItemName());

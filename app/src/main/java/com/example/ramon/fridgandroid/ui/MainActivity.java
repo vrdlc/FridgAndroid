@@ -12,10 +12,7 @@ import android.widget.Toast;
 import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.models.Item;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pantryButton:
-                Intent intentPantry = new Intent(MainActivity.this, PantryActivity.class);
+                Intent intentPantry = new Intent(MainActivity.this, PantryListActivity.class);
                 startActivity(intentPantry);
                 break;
             case R.id.everythingButton:

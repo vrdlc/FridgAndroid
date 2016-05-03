@@ -15,7 +15,6 @@ import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.models.Item;
 import com.firebase.client.Firebase;
-import com.firebase.client.Transaction;
 
 import org.parceler.Parcels;
 
@@ -27,11 +26,11 @@ import butterknife.ButterKnife;
  */
 public class ItemDetailFragment extends Fragment  implements View.OnClickListener{
 
-    @Bind(R.id.detailNameTextView) TextView mNameTextView;
-    @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
-    @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
-    @Bind(R.id.updateButton) Button mUpdateButton;
-    @Bind(R.id.deleteButton) Button mDeleteButton;
+    @Bind(R.id.itemDetailNameTextView) TextView mNameTextView;
+    @Bind(R.id.itemDetailQuantityTextView) TextView mQuantityTextView;
+    @Bind(R.id.itemDetailNotesTextView) TextView mNotesTextView;
+    @Bind(R.id.itemUpdateButton) Button mUpdateButton;
+    @Bind(R.id.itemDeleteButton) Button mDeleteButton;
 
     private Item mItem;
 

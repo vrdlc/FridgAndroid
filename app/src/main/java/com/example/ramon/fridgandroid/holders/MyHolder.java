@@ -20,9 +20,9 @@ public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickLis
 
         //ASSIGN
 
-        nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
-        quantityTextView = (TextView) itemView.findViewById(R.id.quantityTextView);
-        notesTextView = (TextView) itemView.findViewById(R.id.notesTextView);
+        nameTextView = (TextView) itemView.findViewById(R.id.itemNameTextView);
+        quantityTextView = (TextView) itemView.findViewById(R.id.itemQuantityTextView);
+        notesTextView = (TextView) itemView.findViewById(R.id.itemNotesTextView);
 
         itemView.setOnClickListener(this);
     }

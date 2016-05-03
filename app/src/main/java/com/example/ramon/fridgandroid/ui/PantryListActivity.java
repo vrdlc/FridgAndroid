@@ -1,41 +1,40 @@
 package com.example.ramon.fridgandroid.ui;
 
-import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.widget.TextView;
 
 import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.adapters.FirebaseItemListAdapter;
+import com.example.ramon.fridgandroid.database.DatabaseHelper;
 import com.example.ramon.fridgandroid.models.Item;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItemListActivity extends AppCompatActivity {
+
+public class PantryListActivity extends AppCompatActivity {
+
     private Query mQuery;
     private Firebase mFirebaseItemsRef;
     private FirebaseItemListAdapter mAdapter;
 
-    @Bind(R.id.itemRecyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.pantryRecyclerView)
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.activity_pantry_list);
         ButterKnife.bind(this);
 
-
         mFirebaseItemsRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
-
 
         setUpFirebaseQuery();
         setUpRecyclerView();
@@ -51,5 +50,4 @@ public class ItemListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
     }
-
 }

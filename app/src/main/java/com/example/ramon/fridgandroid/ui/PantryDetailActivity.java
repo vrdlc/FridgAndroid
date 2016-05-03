@@ -15,15 +15,15 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItemDetailActivity extends AppCompatActivity {
-    @Bind(R.id.itemViewPager) ViewPager mViewPager;
+public class PantryDetailActivity extends AppCompatActivity {
+    @Bind(R.id.pantryViewPager) ViewPager mViewPager;
     private ItemPagerAdapter adapterViewPager;
     ArrayList<Item> mItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_detail);
+        setContentView(R.layout.activity_pantry_detail);
         ButterKnife.bind(this);
 
         mItems = Parcels.unwrap(getIntent().getParcelableExtra("items"));

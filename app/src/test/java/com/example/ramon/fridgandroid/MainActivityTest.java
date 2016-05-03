@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.example.ramon.fridgandroid.ui.EverythingActivity;
 import com.example.ramon.fridgandroid.ui.GroceryActivity;
 import com.example.ramon.fridgandroid.ui.MainActivity;
-import com.example.ramon.fridgandroid.ui.PantryActivity;
+import com.example.ramon.fridgandroid.ui.PantryListActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class MainActivityTest {
     @Test
     public void pantryActivityStarted() {
         activity.findViewById(R.id.pantryButton).performClick();
-        Intent expectedIntent = new Intent(activity, PantryActivity.class);
+        Intent expectedIntent = new Intent(activity, PantryListActivity.class);
         ShadowActivity shadowActivity = org.robolectric.Shadows.shadowOf(activity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
         assertTrue(actualIntent.filterEquals(expectedIntent));

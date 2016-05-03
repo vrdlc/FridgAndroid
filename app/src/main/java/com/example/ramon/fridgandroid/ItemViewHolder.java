@@ -21,9 +21,9 @@ import butterknife.ButterKnife;
  */
 public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.nameTextView) TextView mNameTextView;
-    @Bind(R.id.quantityTextView) TextView mQuantityTextView;
-    @Bind(R.id.notesTextView) TextView mNotesTextView;
+    @Bind(R.id.itemNameTextView) TextView mNameTextView;
+    @Bind(R.id.itemQuantityTextView) TextView mQuantityTextView;
+    @Bind(R.id.itemNotesTextView) TextView mNotesTextView;
 
     private Context mContext;
     private ArrayList<Item> mItems = new ArrayList<>();
