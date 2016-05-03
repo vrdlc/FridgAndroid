@@ -35,8 +35,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.ItemDetailActivity" />
-        <activity android:name=".ui.ItemListActivity"></activity>
+        <activity android:name=".ui.ItemDetailActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.ramon.fridgandroid.ui.ItemListActivity" />
+        </activity>
+        <activity android:name=".ui.ItemListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ramon.fridgandroid.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

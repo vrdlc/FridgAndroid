@@ -73,6 +73,8 @@ public class ItemDetailFragment extends Fragment  implements View.OnClickListene
             String id = Item.getId();
             Log.v("Item ID", Item.getId());
             Firebase listRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM).child(id);
+            Intent intent = new Intent(getActivity(), ItemListActivity.class);
+            getActivity().startActivity(intent);
             listRef.removeValue();
 
         }

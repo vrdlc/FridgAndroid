@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.pantryButton:
                 Intent intentPantry = new Intent(MainActivity.this, PantryActivity.class);
                 startActivity(intentPantry);
-                Log.v("I WANT TO SEE THE DB",  "please");
                 break;
             case R.id.everythingButton:
                 Intent intentEverything = new Intent(MainActivity.this, ItemListActivity.class);

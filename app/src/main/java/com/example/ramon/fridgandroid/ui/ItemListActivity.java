@@ -44,7 +44,6 @@ public class ItemListActivity extends AppCompatActivity {
 
     private void setUpFirebaseQuery() {
         String item = mFirebaseItemsRef.toString();
-        Log.d("QUERY", item);
         mQuery = new Firebase(item);
     }
 
