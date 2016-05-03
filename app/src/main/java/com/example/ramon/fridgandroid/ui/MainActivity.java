@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
@@ -51,20 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAddToList.setOnClickListener(this);
 
         mSavedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
-//        mSavedItemRefListener = mSavedItemRef.addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                String items = dataSnapshot.getValue().toString();
-//                Log.d("Item Saved", items);
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
     }
 
     @Override
@@ -96,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
                 ref.push().setValue(mItem);
-//                Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
 
                 saveItemToFirebase(name, quantity, notes);
                 mNameEditText.setText("");

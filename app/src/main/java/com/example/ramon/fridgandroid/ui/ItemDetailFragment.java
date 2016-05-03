@@ -4,13 +4,18 @@ package com.example.ramon.fridgandroid.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.models.Item;
+import com.firebase.client.Firebase;
+import com.firebase.client.Transaction;
 
 import org.parceler.Parcels;
 
@@ -20,12 +25,13 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemDetailFragment extends Fragment  {
-    //WHEN I WANT TO ADD LINK FOR IMPLICIT INTENT, IMPLEMENT View.OnClickListener IN PUBLIC CLASS
+public class ItemDetailFragment extends Fragment  implements View.OnClickListener{
 
     @Bind(R.id.detailNameTextView) TextView mNameTextView;
     @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
     @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
+    @Bind(R.id.updateButton) Button mUpdateButton;
+    @Bind(R.id.deleteButton) Button mDeleteButton;
 
     private Item mItem;
 
@@ -56,16 +62,20 @@ public class ItemDetailFragment extends Fragment  {
         mNameTextView.setText(mItem.getItemName());
         mQuantityTextView.setText("x " + mItem.getItemQuantity());
         mNotesTextView.setText(mItem.getItemNotes());
+        mDeleteButton.setOnClickListener(this);
 
         return view;
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v == mSafeway) {
-//            Intent webIntent = new Intent(Intent.ACTION_VIEW, WHAT DO I PUT HERE TO GET LINK???)
-//            startActivity(webIntent);
-//        }
-//    }
+    @Override
+    public void onClick(View v) {
+        if(v == mDeleteButton) {
+            String id = Item.getId();
+            Log.v("Item ID", Item.getId());
+            Firebase listRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM).child(id);
+            listRef.removeValue();
+
+        }
+    }
 
 }

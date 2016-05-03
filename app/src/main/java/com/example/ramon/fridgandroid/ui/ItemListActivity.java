@@ -36,20 +36,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         mFirebaseItemsRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
 
-//        mFirebaseItemsRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                for(DataSnapshot postSnapshot: snapshot.getChildren()) {
-//                    Item item = postSnapshot.getValue(Item.class);
-//                    Log.d("ITEM NAME", item.getItemName());
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//                Log.d("THIS", "FAILED");
-//            }
-//        });
+
 
         setUpFirebaseQuery();
         setUpRecyclerView();

@@ -36,16 +36,4 @@
     </RelativeLayout>
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update Item"
-        android:id="@+id/updateButton"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Item"
-        android:id="@+id/deleteButton"/>
-
 </LinearLayout>
