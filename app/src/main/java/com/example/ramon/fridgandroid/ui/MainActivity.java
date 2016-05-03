@@ -79,9 +79,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String name = mNameEditText.getText().toString();
                 String quantity = mQuantityEditText.getText().toString();
                 String notes = mNotesEditText.getText().toString();
+//                String id = mItem.getId();
 
-                Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
-                ref.push().setValue(mItem);
+//                Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+//                ref.push().setValue(mItem);
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
 
                 saveItemToFirebase(name, quantity, notes);
@@ -114,9 +115,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Item item = new Item(name, quantity, notes);
         Firebase itemRef = savedItemRef.push();
-        String id = itemRef.getKey();
-        item.setId(id);
+        String keyId = itemRef.getKey();
+        item.setId(keyId);
         itemRef.setValue(item);
+        Log.v("WHEEEE", item.getId());
 
         // DO I NEED THREE REFS HERE?
         //savedItemRef.push().setValue(name);

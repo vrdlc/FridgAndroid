@@ -70,8 +70,8 @@ public class ItemDetailFragment extends Fragment  implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if(v == mDeleteButton) {
-            String id = Item.getId();
-            Log.v("Item ID", Item.getId());
+            String id = mItem.getId();
+            Log.v("ID", id);
             Firebase listRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM).child(id);
             Intent intent = new Intent(getActivity(), ItemListActivity.class);
             getActivity().startActivity(intent);

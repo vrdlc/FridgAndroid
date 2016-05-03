@@ -37,13 +37,13 @@ public class ItemListActivity extends AppCompatActivity {
         mFirebaseItemsRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
 
 
-
         setUpFirebaseQuery();
         setUpRecyclerView();
     }
 
     private void setUpFirebaseQuery() {
         String item = mFirebaseItemsRef.toString();
+        Log.v("GIVE ME IDDDDDD", item);
         mQuery = new Firebase(item);
     }
 
@@ -52,4 +52,5 @@ public class ItemListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
     }
+
 }

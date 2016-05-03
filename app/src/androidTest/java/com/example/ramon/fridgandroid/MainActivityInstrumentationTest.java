@@ -19,24 +19,4 @@ import static java.util.regex.Pattern.matches;
  */
 public class MainActivityInstrumentationTest {
 
-    @Rule
-    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
-
-    @Test
-    public void validateEditText() {
-        onView(withId(R.id.nameEditText)).perform(typeText("fast")).check(matches(withText("fast")));
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withId(R.id.quantityEditText)).perform(typeText("slow")).check(matches(withText("slow")));
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withId(R.id.notesEditText)).perform(typeText("cat"), closeSoftKeyboard()).check(matches(withText("cat")));
-
-
 }

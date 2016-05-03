@@ -11,7 +11,7 @@ public class Item {
     private String itemName;
     private String itemQuantity;
     private String itemNotes;
-    private static String id;
+    private String id;
 
     public Item() {
     }
@@ -34,7 +34,7 @@ public class Item {
         return itemNotes;
     }
 
-    public static String getId() {
+    public String getId() {
         return id;
     }
 

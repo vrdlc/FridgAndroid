@@ -31,11 +31,4 @@
             android:text="New Text"
             android:id="@+id/quantityTextView" />
 
-
-    <Button
-        android:id="@+id/retrieveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Retrieve"/>
-
 </LinearLayout>
