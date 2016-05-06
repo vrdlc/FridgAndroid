@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.ramon.fridgandroid.Constants;
@@ -22,13 +23,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //    private ValueEventListener mSavedItemRefListener;
     private Item mItem;
 
-    @Bind(R.id.pantryButton) Button mPantryButton;
-    @Bind(R.id.everythingButton) Button mEverythingButton;
+    @Bind (R.id.pantryButton) Button mPantryButton;
+    @Bind (R.id.everythingButton) Button mEverythingButton;
     @Bind (R.id.groceryButton) Button mGroceryButton;
     @Bind (R.id.addToList) Button mAddToList;
     @Bind (R.id.nameEditText) EditText mNameEditText;
     @Bind (R.id.quantityEditText) EditText mQuantityEditText;
     @Bind (R.id.notesEditText) EditText mNotesEditText;
+//    @Bind (R.id.spinner) Spinner mSpinner;
 
 
 

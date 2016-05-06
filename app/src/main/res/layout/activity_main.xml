@@ -79,26 +79,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/addToList"
+    <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add to List"
-        android:layout_below="@+id/notesEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/everythingButton"
-        android:layout_toLeftOf="@+id/everythingButton" />
+        android:id="@+id/spinner"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/notesEditText" />
 
     <Button
-        android:id="@+id/addToGrocery"
-        android:layout_width="wrap_content"
+        android:id="@+id/addToList"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add to Grocery List"
-        android:layout_alignBottom="@+id/addToList"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/everythingButton"
-        android:layout_toEndOf="@+id/everythingButton" />
+        android:text="Add to List"
+        android:layout_above="@+id/pantryButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
