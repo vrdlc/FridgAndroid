@@ -36,7 +36,8 @@
                 android:value=".ui.MainActivity" />
         </activity>
         <activity android:name=".ui.ItemDetailActivity" />
-        <activity android:name=".ui.ItemActivity"></activity>
+        <activity android:name=".ui.ItemActivity" />
+        <activity android:name=".ui.PantryDetailActivity"></activity>
     </application>
 
 </manifest>
