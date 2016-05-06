@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
 public class ItemDetailFragment extends Fragment  {
     //WHEN I WANT TO ADD LINK FOR IMPLICIT INTENT, IMPLEMENT View.OnClickListener IN PUBLIC CLASS
 
-    @Bind(R.id.nameTextView) TextView mNameTextView;
-    @Bind(R.id.quantityTextView) TextView mQuantityTextView;
-    @Bind(R.id.notesTextView) TextView mNotesTextView;
+    @Bind(R.id.detailItemNameTextView) TextView mNameTextView;
+    @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
+    @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
 
     private Item mItem;
 

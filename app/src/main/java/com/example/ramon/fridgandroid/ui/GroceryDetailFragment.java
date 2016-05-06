@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Ramon on 5/6/16.
  */
-public class PantryDetailFragment extends Fragment {
+public class GroceryDetailFragment extends Fragment {
 
     //WHEN I WANT TO ADD LINK FOR IMPLICIT INTENT, IMPLEMENT View.OnClickListener IN PUBLIC CLASS
 
@@ -29,16 +29,16 @@ public class PantryDetailFragment extends Fragment {
     private Item mItem;
 
 
-    public PantryDetailFragment() {
+    public GroceryDetailFragment() {
         // Required empty public constructor
     }
 
-    public static PantryDetailFragment newInstance(Item item) {
-        PantryDetailFragment pantryDetailFragment = new PantryDetailFragment();
+    public static GroceryDetailFragment newInstance(Item item) {
+        GroceryDetailFragment groceryDetailFragment = new GroceryDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable("item", Parcels.wrap(item));
-        pantryDetailFragment.setArguments(args);
-        return pantryDetailFragment;
+        groceryDetailFragment.setArguments(args);
+        return groceryDetailFragment;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class PantryDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pantry_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_grocery_detail, container, false);
         ButterKnife.bind(this, view);
 
         mNameTextView.setText(mItem.getItemName());
