@@ -1,5 +1,6 @@
 TO DO:
 
+* Add swipe to change lists if possible
 * Add material design + button to MainActivity
 * Udacity Course is Firebase Basics
 * Add multiple users
