@@ -9,9 +9,11 @@ import android.widget.TextView;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.models.Item;
 import com.example.ramon.fridgandroid.ui.ItemDetailActivity;
+import com.example.ramon.fridgandroid.util.Utils;
 
 import org.parceler.Parcels;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -25,6 +27,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.nameTextView) TextView mNameTextView;
     @Bind(R.id.quantityTextView) TextView mQuantityTextView;
     @Bind(R.id.notesTextView) TextView mNotesTextView;
+    @Bind(R.id.timestampTextView) TextView mTimestampTextView;
 
     private Context mContext;
     private ArrayList<Item> mItems = new ArrayList<>();
@@ -50,5 +53,10 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
         mNameTextView.setText(item.getItemName());
         mQuantityTextView.setText(item.getItemQuantity());
         mNotesTextView.setText(item.getItemNotes());
-    }
+        if (item.getTimestampLastChanged() != null) {
+            Utils.SIMPLE_DATE_FORMAT.format(
+                    new Date(item.getTimestampLastChangedLong()));
+        } else {
+            mTimestampTextView.setText("");
+        }    }
 }

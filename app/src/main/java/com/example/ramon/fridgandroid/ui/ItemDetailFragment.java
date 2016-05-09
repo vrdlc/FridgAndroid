@@ -11,8 +11,16 @@ import android.widget.TextView;
 
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.models.Item;
+import com.example.ramon.fridgandroid.util.Constants;
+import com.example.ramon.fridgandroid.util.Utils;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import org.parceler.Parcels;
+
+import java.sql.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,12 +28,12 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemDetailFragment extends Fragment  {
-    //WHEN I WANT TO ADD LINK FOR IMPLICIT INTENT, IMPLEMENT View.OnClickListener IN PUBLIC CLASS
+public class ItemDetailFragment extends Fragment {
 
     @Bind(R.id.detailItemNameTextView) TextView mNameTextView;
     @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
     @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
+    @Bind(R.id.detailTimestampTextView) TextView mTimestampTextView;
 
     private Item mItem;
 
@@ -53,12 +61,32 @@ public class ItemDetailFragment extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_item_detail, container, false);
         ButterKnife.bind(this, view);
 
-        mNameTextView.setText(mItem.getItemName());
-        mQuantityTextView.setText("x " + mItem.getItemQuantity());
-        mNotesTextView.setText(mItem.getItemNotes());
+        Firebase refListName = new Firebase(Constants.FIREBASE_URL).child("");
 
-        return view;
-    }
+        refListName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Item item = dataSnapshot.getValue(Item.class);
+
+                if (item != null) {
+                    mNameTextView.setText(mItem.getItemName());
+                    mQuantityTextView.setText("x " + mItem.getItemQuantity());
+                    mNotesTextView.setText(mItem.getItemNotes());
+                    if (item.getTimestampLastChanged() != null) {
+                        Utils.SIMPLE_DATE_FORMAT.format(
+                                new Date(item.getTimestampLastChangedLong()));
+                    } else {
+                        mTimestampTextView.setText("");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
 
 //    @Override
 //    public void onClick(View v) {
@@ -68,4 +96,6 @@ public class ItemDetailFragment extends Fragment  {
 //        }
 //    }
 
+        return view;
+    }
 }

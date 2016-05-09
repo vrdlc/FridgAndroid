@@ -3,17 +3,10 @@ package com.example.ramon.fridgandroid.ui;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
-import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
-import com.example.ramon.fridgandroid.adapters.FirebaseGroceryListAdapter;
-import com.example.ramon.fridgandroid.adapters.FirebasePantryListAdapter;
 import com.example.ramon.fridgandroid.adapters.PagerAdapter;
 import com.example.ramon.fridgandroid.models.Item;
-import com.firebase.client.Firebase;
-import com.firebase.client.Query;
 
 import org.parceler.Parcels;
 

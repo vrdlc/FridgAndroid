@@ -5,15 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.ramon.fridgandroid.Constants;
+import com.example.ramon.fridgandroid.util.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.models.Item;
 import com.firebase.client.Firebase;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind (R.id.nameEditText) EditText mNameEditText;
     @Bind (R.id.quantityEditText) EditText mQuantityEditText;
     @Bind (R.id.notesEditText) EditText mNotesEditText;
-//    @Bind (R.id.spinner) Spinner mSpinner;
+    @Bind (R.id.spinner) Spinner mSpinner;
 
 
 
@@ -48,6 +51,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAddToList.setOnClickListener(this);
 
         mSavedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+
+        Spinner mSpinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.spinner_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
     }
 
 //    @Override
@@ -75,13 +84,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String name = mNameEditText.getText().toString();
                 String quantity = mQuantityEditText.getText().toString();
                 String notes = mNotesEditText.getText().toString();
-//                String id = mItem.getId();
+                String list = mSpinner.getSelectedItem().toString();
 
 //                Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
 //                ref.push().setValue(mItem);
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
 
-                saveItemToFirebase(name, quantity, notes);
+                saveItemToFirebase(name, quantity, notes, list);
                 mNameEditText.setText("");
                 mQuantityEditText.setText("");
                 mNotesEditText.setText("");
@@ -98,10 +107,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void saveItemToFirebase(String name, String quantity, String notes) {
+    public void saveItemToFirebase(String name, String quantity, String notes, String list) {
         Firebase savedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
 
-        Item item = new Item(name, quantity, notes);
+        Item item = new Item(name, quantity, notes, list);
         Firebase itemRef = savedItemRef.push();
         String keyId = itemRef.getKey();
         item.setId(keyId);
