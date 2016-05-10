@@ -13,8 +13,6 @@ import java.util.HashMap;
  */
 @Parcel
 public class Item {
-
-
     private String itemName;
     private String itemQuantity;
     private String itemNotes;

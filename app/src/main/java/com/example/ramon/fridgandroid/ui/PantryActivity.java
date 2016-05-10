@@ -38,7 +38,7 @@ public class PantryActivity extends AppCompatActivity {
 
     private void setUpFirebaseQuery() {
         String item = mFirebasePantryRef.toString();
-        mQuery = new Firebase(item);
+        mQuery = new Firebase(item).orderByChild("chooseList").equalTo("pantry");
     }
 
     private void setUpRecyclerView() {

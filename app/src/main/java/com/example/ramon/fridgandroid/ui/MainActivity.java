@@ -84,7 +84,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String name = mNameEditText.getText().toString();
                 String quantity = mQuantityEditText.getText().toString();
                 String notes = mNotesEditText.getText().toString();
-                String list = mSpinner.getSelectedItem().toString();
+                int listId = mSpinner.getSelectedItemPosition();
+                String list;
+                if (listId == 0) {
+                    list = "pantry";
+                } else {
+                    list = "grocery";
+                }
 
 //                Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
 //                ref.push().setValue(mItem);

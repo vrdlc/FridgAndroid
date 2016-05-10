@@ -4,6 +4,7 @@ package com.example.ramon.fridgandroid.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
     @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
     @Bind(R.id.detailTimestampTextView) TextView mTimestampTextView;
-    @Bind(R.id.updateButton) Button mUpdateButton;
+    //@Bind(R.id.updateButton) Button mUpdateButton;
 
     private Item mItem;
 
@@ -63,22 +64,25 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_item_detail, container, false);
         ButterKnife.bind(this, view);
 
-        Firebase refListName = new Firebase(Constants.FIREBASE_URL).child("");
+        Firebase refListName = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(mItem.getId());
+        Log.d("PATH", refListName.toString());
 
         refListName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Item item = dataSnapshot.getValue(Item.class);
+
+                    Item item = dataSnapshot.getValue(Item.class);
 
                 if (item != null) {
                     mNameTextView.setText(mItem.getItemName());
                     mQuantityTextView.setText("x " + mItem.getItemQuantity());
                     mNotesTextView.setText(mItem.getItemNotes());
                     if (item.getTimestampLastChanged() != null) {
-                        Utils.SIMPLE_DATE_FORMAT.format(
+                        String time = Utils.SIMPLE_DATE_FORMAT.format(
                                 new Date(item.getTimestampLastChangedLong()));
+                        mTimestampTextView.setText(time);
                     } else {
-                        mTimestampTextView.setText("");
+                        mTimestampTextView.setText("N/A");
                     }
                 }
             }
@@ -88,15 +92,11 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
 
             }
         });
-
+        return view;
+    }
 
     @Override
     public void onClick(View view) {
-        if (view == mUpdateButton) {
 
-        }
-    }
-
-        return view;
     }
 }
