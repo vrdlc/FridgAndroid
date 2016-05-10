@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ramon.fridgandroid.R;
@@ -28,12 +29,13 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemDetailFragment extends Fragment {
+public class ItemDetailFragment extends Fragment implements View.OnClickListener {
 
     @Bind(R.id.detailItemNameTextView) TextView mNameTextView;
     @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
     @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
     @Bind(R.id.detailTimestampTextView) TextView mTimestampTextView;
+    @Bind(R.id.updateButton) Button mUpdateButton;
 
     private Item mItem;
 
@@ -88,13 +90,12 @@ public class ItemDetailFragment extends Fragment {
         });
 
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v == mSafeway) {
-//            Intent webIntent = new Intent(Intent.ACTION_VIEW, WHAT DO I PUT HERE TO GET LINK???)
-//            startActivity(webIntent);
-//        }
-//    }
+    @Override
+    public void onClick(View view) {
+        if (view == mUpdateButton) {
+
+        }
+    }
 
         return view;
     }
