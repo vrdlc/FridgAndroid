@@ -2,6 +2,7 @@ package com.example.ramon.fridgandroid.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,33 +22,31 @@ import com.firebase.client.FirebaseError;
 import java.util.Map;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = CreateAccountActivity.class.getSimpleName();
+    @Bind(R.id.createUserButton) Button mCreateUserButton;
+    @Bind(R.id.nameEditText) EditText mNameEditText;
+    @Bind(R.id.emailEditText) EditText mEmailEditText;
+    @Bind(R.id.passwordEditText) EditText mPasswordEditText;
+    @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
+    @Bind(R.id.loginTextView) TextView mLoginTextView;
+    private Firebase mFirebaseRef;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private SharedPreferences mSharedPreferences;
-
-    @Bind(R.id.createUserButton)
-    Button mCreateUserButton;
-    @Bind(R.id.nameEditText)
-    EditText mNameEditText;
-    @Bind(R.id.emailEditText)
-    EditText mEmailEditText;
-    @Bind(R.id.passwordEditText)
-    EditText mPasswordEditText;
-    @Bind(R.id.confirmPasswordEditText)
-    EditText mConfirmPasswordEditText;
-    @Bind(R.id.loginTextView)
-    TextView mLoginEditText;
-    private Firebase mFirebaseRef;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        ButterKnife.bind(this);
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         mCreateUserButton.setOnClickListener(this);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPreferencesEditor = mSharedPreferences.edit();
+
     }
 
     @Override
