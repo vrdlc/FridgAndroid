@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Ramon on 5/6/16.
  */
-public class GroceryViewHolder extends RecyclerView.ViewHolder {
+public class GroceryViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
 
     @Bind(R.id.nameTextView)
     public
@@ -57,15 +57,15 @@ public class GroceryViewHolder extends RecyclerView.ViewHolder {
         mNotesTextView.setText(item.getItemNotes());;
     }
 
-//    @Override
-//    public void onItemSelected() {
-//
-//    }
-//
-//    @Override
-//    public void onItemClear() {
-//
-//    }
+    @Override
+    public void onItemSelected() {
+
+    }
+
+    @Override
+    public void onItemClear() {
+
+    }
 
 
 }

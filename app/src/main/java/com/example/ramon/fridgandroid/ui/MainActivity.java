@@ -14,18 +14,28 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ramon.fridgandroid.models.User;
 import com.example.ramon.fridgandroid.util.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.models.Item;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private ValueEventListener mUserRefListener;
     private Firebase mSavedItemRef;
+    private Firebase mUserRef;
+    private String mUid;
     private Firebase mFirebaseRef;
 //    private ValueEventListener mSavedItemRefListener;
     private Item mItem;
@@ -38,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind (R.id.nameEditText) EditText mNameEditText;
     @Bind (R.id.quantityEditText) EditText mQuantityEditText;
     @Bind (R.id.notesEditText) EditText mNotesEditText;
+    @Bind (R.id.welcomeTextView) TextView mWelcomeTextView;
     @Bind (R.id.spinner) Spinner mSpinner;
 
 
@@ -48,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUid);
+
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         ButterKnife.bind(this);
 
@@ -64,6 +78,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 R.array.spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
+
+        mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                mWelcomeTextView.setText("Welcome, " + user.getName() + "!");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d(TAG, "Read failed");
+            }
+        });
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.ramon.fridgandroid.ui;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ public class PantryActivity extends AppCompatActivity {
     private Query mQuery;
     private Firebase mFirebasePantryRef;
     private FirebasePantryListAdapter mAdapter;
+    private SharedPreferences mSharedPreferences;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 //    @Bind(R.id.updateButton) Button mUpdateButton;
@@ -32,13 +35,15 @@ public class PantryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mFirebasePantryRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         setUpFirebaseQuery();
         setUpRecyclerView();
     }
 
     private void setUpFirebaseQuery() {
-        String item = mFirebasePantryRef.toString();
+        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String item = mFirebasePantryRef.child(userUid).toString();
         mQuery = new Firebase(item).orderByChild("chooseList").equalTo("pantry");
     }
 

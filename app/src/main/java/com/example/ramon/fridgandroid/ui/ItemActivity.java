@@ -1,6 +1,8 @@
 package com.example.ramon.fridgandroid.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +26,7 @@ public class ItemActivity extends AppCompatActivity {
     private Query mQuery;
     private Firebase mFirebaseItemsRef;
     private FirebaseItemListAdapter mAdapter;
+    private SharedPreferences mSharedPreferences;
 
     @Bind(R.id.itemRecyclerView) RecyclerView mRecyclerView;
 
@@ -33,6 +36,7 @@ public class ItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         ButterKnife.bind(this);
 
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mFirebaseItemsRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
 
@@ -42,7 +46,8 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private void setUpFirebaseQuery() {
-        String item = mFirebaseItemsRef.toString();
+        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String item = mFirebaseItemsRef.child(userUid).toString();
         mQuery = new Firebase(item);
     }
 

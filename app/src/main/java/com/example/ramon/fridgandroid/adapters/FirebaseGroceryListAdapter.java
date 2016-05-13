@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,14 +25,14 @@ import java.util.Collections;
 /**
  * Created by Ramon on 5/6/16.
  */
-public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<GroceryViewHolder, Item>{
+public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<GroceryViewHolder, Item> implements ItemTouchHelperAdapter {
 
-//    private final OnStartDragListener mDragStartListener;
+    private final OnStartDragListener mDragStartListener;
     private Context mContext;
 
-    public FirebaseGroceryListAdapter(Query query, Class<Item> itemClass) {
+    public FirebaseGroceryListAdapter(Query query, Class<Item> itemClass, OnStartDragListener dragStartListener) {
         super(query, itemClass);
-//        mDragStartListener = dragStartListener;
+        mDragStartListener = dragStartListener;
     }
 
     @Override
@@ -48,28 +49,30 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<GroceryV
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-//                    mDragStartListener.onStartDrag(holder);
+                    mDragStartListener.onStartDrag(holder);
                 }
                 return false;
             }
         });
     }
-//
-//    @Override
-//    public boolean onItemMove(int fromPosition, int toPosition) {
-//        Collections.swap(getItems(), fromPosition, toPosition);
-//        notifyItemMoved(fromPosition, toPosition);
-//        return true;
-//    }
-//
-//    @Override
-//    public void onItemValueChange(int position) {
-////        mContext = parent.getContext();
-////        Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM)
-////.child(uid);
-////        String itemKey = getItem(position).getPushId();
-////        ref.child(itemKey).();
-//    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(getItems(), fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemValueChange(int position) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String uid = sharedPreferences.getString(Constants.KEY_UID, null);
+        Firebase ref = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(uid);
+        String itemKey = getItem(position).getId();
+        Log.d("PPOOOOOOOPPPPSSS", itemKey + "");
+        ref.child(itemKey).removeValue();
+
+    }
 
     @Override
     public int getItemCount() {

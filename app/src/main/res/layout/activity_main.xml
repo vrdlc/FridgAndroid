@@ -17,6 +17,17 @@
         android:id="@+id/mainActivityTextView"
         android:textSize="60sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome user"
+        android:id="@+id/welcomeTextView"
+        android:layout_alignBottom="@+id/mainActivityTextView"
+        android:layout_toRightOf="@+id/mainActivityTextView"
+        android:layout_toEndOf="@+id/mainActivityTextView"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp" />
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
