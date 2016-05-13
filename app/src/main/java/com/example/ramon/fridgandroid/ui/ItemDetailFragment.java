@@ -11,12 +11,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.ramon.fridgandroid.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.models.Item;
+import com.example.ramon.fridgandroid.util.Constants;
+import com.example.ramon.fridgandroid.util.Utils;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import org.parceler.Parcels;
+
+import java.sql.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,13 +30,13 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemDetailFragment extends Fragment  implements View.OnClickListener{
+public class ItemDetailFragment extends Fragment implements View.OnClickListener {
 
-    @Bind(R.id.itemDetailNameTextView) TextView mNameTextView;
-    @Bind(R.id.itemDetailQuantityTextView) TextView mQuantityTextView;
-    @Bind(R.id.itemDetailNotesTextView) TextView mNotesTextView;
-    @Bind(R.id.itemUpdateButton) Button mUpdateButton;
-    @Bind(R.id.itemDeleteButton) Button mDeleteButton;
+    @Bind(R.id.detailItemNameTextView) TextView mNameTextView;
+    @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
+    @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
+    @Bind(R.id.detailTimestampTextView) TextView mTimestampTextView;
+    //@Bind(R.id.updateButton) Button mUpdateButton;
 
     private Item mItem;
 
@@ -58,25 +64,39 @@ public class ItemDetailFragment extends Fragment  implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_item_detail, container, false);
         ButterKnife.bind(this, view);
 
-        mNameTextView.setText(mItem.getItemName());
-        mQuantityTextView.setText("x " + mItem.getItemQuantity());
-        mNotesTextView.setText(mItem.getItemNotes());
-        mDeleteButton.setOnClickListener(this);
+        Firebase refListName = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(mItem.getId());
+        Log.d("PATH", refListName.toString());
 
+        refListName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Item item = dataSnapshot.getValue(Item.class);
+
+                if (item != null) {
+                    mNameTextView.setText(mItem.getItemName());
+                    mQuantityTextView.setText("x " + mItem.getItemQuantity());
+                    mNotesTextView.setText(mItem.getItemNotes());
+                    if (item.getTimestampLastChanged() != null) {
+                        String time = Utils.SIMPLE_DATE_FORMAT.format(
+                                new Date(item.getTimestampLastChangedLong()));
+                        mTimestampTextView.setText(time);
+                    } else {
+                        mTimestampTextView.setText("N/A");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
         return view;
     }
 
     @Override
-    public void onClick(View v) {
-        if(v == mDeleteButton) {
-            String id = mItem.getId();
-            Log.v("ID", id);
-            Firebase listRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM).child(id);
-            Intent intent = new Intent(getActivity(), ItemListActivity.class);
-            getActivity().startActivity(intent);
-            listRef.removeValue();
+    public void onClick(View view) {
 
-        }
     }
-
 }

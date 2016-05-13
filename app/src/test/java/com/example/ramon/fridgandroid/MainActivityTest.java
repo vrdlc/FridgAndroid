@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.widget.TextView;
 
-import com.example.ramon.fridgandroid.ui.EverythingActivity;
 import com.example.ramon.fridgandroid.ui.GroceryActivity;
 import com.example.ramon.fridgandroid.ui.MainActivity;
 import com.example.ramon.fridgandroid.ui.PantryListActivity;

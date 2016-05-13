@@ -5,29 +5,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ramon.fridgandroid.R;
-import com.example.ramon.fridgandroid.holders.ItemViewHolder;
+import com.example.ramon.fridgandroid.holders.PantryViewHolder;
 import com.example.ramon.fridgandroid.models.Item;
 import com.example.ramon.fridgandroid.util.FirebaseRecyclerAdapter;
 import com.firebase.client.Query;
 
-
 /**
- * Created by Ramon on 5/2/16.
+ * Created by Ramon on 5/6/16.
  */
-public class FirebaseItemListAdapter extends FirebaseRecyclerAdapter<ItemViewHolder, Item> {
+public class FirebasePantryListAdapter extends FirebaseRecyclerAdapter<PantryViewHolder, Item> {
 
-    public FirebaseItemListAdapter(Query query, Class<Item> itemClass) {
+    public FirebasePantryListAdapter(Query query, Class<Item> itemClass) {
         super(query, itemClass);
     }
 
     @Override
-    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_item, parent, false);
-        return new ItemViewHolder(view, getItems());
+    public PantryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pantry_list_item, parent, false);
+        return new PantryViewHolder(view, getItems());
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(PantryViewHolder holder, int position) {
         holder.bindItem(getItem(position));
     }
 
@@ -51,4 +50,5 @@ public class FirebaseItemListAdapter extends FirebaseRecyclerAdapter<ItemViewHol
 
     }
 }
+
 

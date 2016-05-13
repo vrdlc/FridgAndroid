@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.example.ramon.fridgandroid.Constants;
+import com.example.ramon.fridgandroid.util.Constants;
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.adapters.FirebaseItemListAdapter;
 import com.example.ramon.fridgandroid.models.Item;
@@ -20,7 +20,7 @@ import com.firebase.client.ValueEventListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItemListActivity extends AppCompatActivity {
+public class ItemActivity extends AppCompatActivity {
     private Query mQuery;
     private Firebase mFirebaseItemsRef;
     private FirebaseItemListAdapter mAdapter;

@@ -10,17 +10,17 @@
     tools:context="com.example.ramon.fridgandroid.ui.PantryDetailActivity">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pantryViewPager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <android.support.v4.view.PagerTabStrip
-        android:id="@+id/pantryPagerHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp" />
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pagerHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp" />
 
     </android.support.v4.view.ViewPager>
 

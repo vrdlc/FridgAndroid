@@ -7,32 +7,34 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ramon.fridgandroid.R;
-import com.example.ramon.fridgandroid.holders.ItemViewHolder;
+import com.example.ramon.fridgandroid.holders.GroceryViewHolder;
+import com.example.ramon.fridgandroid.holders.PantryViewHolder;
 import com.example.ramon.fridgandroid.models.Item;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * Created by Ramon on 5/2/16.
+ * Created by Ramon on 5/6/16.
  */
-public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
+public class GroceryListAdapter extends RecyclerView.Adapter<GroceryViewHolder> {
     private ArrayList<Item> mItems = new ArrayList<>();
     private Context mContext;
 
-    public ItemListAdapter(Context context, ArrayList<Item> items) {
+    public GroceryListAdapter(Context context, ArrayList<Item> items) {
         mContext = context;
         mItems = items;
     }
 
     @Override
-    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_item, parent, false);
-        ItemViewHolder viewHolder = new ItemViewHolder(view, mItems);
+    public GroceryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pantry_list_item, parent, false);
+        GroceryViewHolder viewHolder = new GroceryViewHolder(view, mItems);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(GroceryViewHolder holder, int position) {
         holder.bindItem(mItems.get(position));
     }
 
@@ -40,5 +42,4 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     public int getItemCount() {
         return mItems.size();
     }
-
 }
