@@ -1,6 +1,8 @@
 package com.example.ramon.fridgandroid.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Firebase mFirebaseRef;
 //    private ValueEventListener mSavedItemRefListener;
     private Item mItem;
+    private SharedPreferences mSharedPreferences;
 
     @Bind (R.id.pantryButton) Button mPantryButton;
     @Bind (R.id.everythingButton) Button mEverythingButton;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         ButterKnife.bind(this);
 
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGroceryButton.setOnClickListener(this);
         mAddToList.setOnClickListener(this);
 
-        mSavedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+        mSavedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
 
         Spinner mSpinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -115,8 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     list = "grocery";
                 }
 
-//                Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
-//                ref.push().setValue(mItem);
+
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
 
                 saveItemToFirebase(name, quantity, notes, list);
@@ -125,19 +128,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mNotesEditText.setText("");
 
 
-                //SHARED PREFERENCES
-                //if(!(name).equals("")) {
-                //  addToSharedPreferences(name);
-                //}
-
-
             default:
                 break;
         }
     }
 
     public void saveItemToFirebase(String name, String quantity, String notes, String list) {
-        Firebase savedItemRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
 
         Item item = new Item(name, quantity, notes, list);
         Firebase itemRef = savedItemRef.push();

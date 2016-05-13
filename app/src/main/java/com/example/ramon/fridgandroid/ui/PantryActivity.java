@@ -31,7 +31,7 @@ public class PantryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pantry);
         ButterKnife.bind(this);
 
-        mFirebasePantryRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+        mFirebasePantryRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
 
         setUpFirebaseQuery();
         setUpRecyclerView();

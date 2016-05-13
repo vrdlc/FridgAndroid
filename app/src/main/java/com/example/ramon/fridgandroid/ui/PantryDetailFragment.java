@@ -1,7 +1,9 @@
 package com.example.ramon.fridgandroid.ui;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class PantryDetailFragment extends Fragment {
+    private SharedPreferences mSharedPreferences;
 
     //WHEN I WANT TO ADD LINK FOR IMPLICIT INTENT, IMPLEMENT View.OnClickListener IN PUBLIC CLASS
 
@@ -42,6 +45,7 @@ public class PantryDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mItem = Parcels.unwrap(getArguments().getParcelable("item"));
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override

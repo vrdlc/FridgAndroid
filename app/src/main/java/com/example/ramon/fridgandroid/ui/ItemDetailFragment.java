@@ -2,7 +2,9 @@ package com.example.ramon.fridgandroid.ui;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +34,8 @@ import butterknife.ButterKnife;
  */
 public class ItemDetailFragment extends Fragment implements View.OnClickListener {
 
+    private SharedPreferences mSharedPreferences;
+
     @Bind(R.id.detailItemNameTextView) TextView mNameTextView;
     @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
     @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
@@ -57,6 +61,7 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mItem = Parcels.unwrap(getArguments().getParcelable("item"));
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override

@@ -31,7 +31,7 @@ public class GroceryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_grocery);
         ButterKnife.bind(this);
 
-        mFirebaseGroceryRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+        mFirebaseGroceryRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
 
         setUpFirebaseQuery();
         setUpRecyclerView();
@@ -39,7 +39,7 @@ public class GroceryActivity extends AppCompatActivity {
 
     private void setUpFirebaseQuery() {
         String item = mFirebaseGroceryRef.toString();
-        mQuery = new Firebase(item);
+        mQuery = new Firebase(item).orderByChild("chooseList").equalTo("grocery");
     }
 
     private void setUpRecyclerView() {

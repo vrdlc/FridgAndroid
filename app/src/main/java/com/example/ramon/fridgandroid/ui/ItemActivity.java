@@ -34,7 +34,7 @@ public class ItemActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        mFirebaseItemsRef = new Firebase(Constants.FIREBASE_URL_SAVED_ITEM);
+        mFirebaseItemsRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
 
 
         setUpFirebaseQuery();
