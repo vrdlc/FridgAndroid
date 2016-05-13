@@ -51,6 +51,10 @@ public class Item {
         return chooseList;
     }
 
+    public void setChooseList(String chooseList) {
+        this.chooseList = chooseList;
+    }
+
     public String getPushId() {
         return pushId;
     }

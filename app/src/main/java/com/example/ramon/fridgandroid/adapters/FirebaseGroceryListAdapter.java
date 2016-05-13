@@ -21,6 +21,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.Query;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ramon on 5/6/16.
@@ -29,6 +31,7 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<GroceryV
 
     private final OnStartDragListener mDragStartListener;
     private Context mContext;
+    private Item mItem;
 
     public FirebaseGroceryListAdapter(Query query, Class<Item> itemClass, OnStartDragListener dragStartListener) {
         super(query, itemClass);
@@ -69,9 +72,15 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<GroceryV
         String uid = sharedPreferences.getString(Constants.KEY_UID, null);
         Firebase ref = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(uid);
         String itemKey = getItem(position).getId();
-        Log.d("PPOOOOOOOPPPPSSS", itemKey + "");
-        ref.child(itemKey).removeValue();
+//        Item item = getItem(position);
+        Map<String, Object> pantry = new HashMap<String, Object>();
+        pantry.put("chooseList", "pantry");
+        Log.d("pantry", pantry + "");
+        Log.d("itemKey", itemKey + "");
+        Log.d("ref", ref + "");
+        ref.child(itemKey).updateChildren(pantry);
 
+//        item.setChooseList("pantry");
     }
 
     @Override
