@@ -72,7 +72,6 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<GroceryV
         String uid = sharedPreferences.getString(Constants.KEY_UID, null);
         Firebase ref = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(uid);
         String itemKey = getItem(position).getId();
-//        Item item = getItem(position);
         Map<String, Object> pantry = new HashMap<String, Object>();
         pantry.put("chooseList", "pantry");
         Log.d("pantry", pantry + "");
@@ -80,7 +79,6 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<GroceryV
         Log.d("ref", ref + "");
         ref.child(itemKey).updateChildren(pantry);
 
-//        item.setChooseList("pantry");
     }
 
     @Override

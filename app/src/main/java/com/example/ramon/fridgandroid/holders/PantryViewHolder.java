@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  */
 public class PantryViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.nameTextView) TextView mNameTextView;
+    @Bind(R.id.nameTextView) public TextView mNameTextView;
     @Bind(R.id.quantityTextView) TextView mQuantityTextView;
     @Bind(R.id.notesTextView) TextView mNotesTextView;
 //    @Bind(R.id.imageView) ImageView mImageView;

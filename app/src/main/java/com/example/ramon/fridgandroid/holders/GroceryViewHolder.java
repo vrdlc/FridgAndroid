@@ -24,9 +24,7 @@ import butterknife.ButterKnife;
  */
 public class GroceryViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
 
-    @Bind(R.id.nameTextView)
-    public
-    TextView mNameTextView;
+    @Bind(R.id.nameTextView) public TextView mNameTextView;
     @Bind(R.id.quantityTextView) TextView mQuantityTextView;
     @Bind(R.id.notesTextView) TextView mNotesTextView;
 //    @Bind(R.id.imageView) ImageView mImageView;
