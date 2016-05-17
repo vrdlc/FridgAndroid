@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ramon.fridgandroid.R;
@@ -29,7 +30,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> implem
     private Context mContext;
     private SharedPreferences mSharedPreferences;
 
-    @Bind(R.id.deleteButton) Button mDeleteButton;
+    @Bind(R.id.deleteButton) ImageView mDeleteButton;
 
 
     public ItemListAdapter(Context context, ArrayList<Item> items) {
