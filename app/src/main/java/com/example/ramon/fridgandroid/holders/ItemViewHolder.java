@@ -54,7 +54,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
 
     public void bindItem(Item item) {
         mNameTextView.setText(item.getItemName());
-        mQuantityTextView.setText(item.getItemQuantity());
+        mQuantityTextView.setText("x " + item.getItemQuantity());
         mNotesTextView.setText(item.getItemNotes());
         if (item.getTimestampLastChanged() != null) {
             Utils.SIMPLE_DATE_FORMAT.format(

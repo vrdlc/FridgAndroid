@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.ramon.fridgandroid.util.Constants;
 import com.example.ramon.fridgandroid.R;
@@ -22,7 +25,7 @@ import com.firebase.client.ValueEventListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItemActivity extends AppCompatActivity {
+public class ItemActivity extends AppCompatActivity  {
     private Query mQuery;
     private Firebase mFirebaseItemsRef;
     private FirebaseItemListAdapter mAdapter;
@@ -44,6 +47,7 @@ public class ItemActivity extends AppCompatActivity {
         setUpFirebaseQuery();
         setUpRecyclerView();
     }
+
 
     private void setUpFirebaseQuery() {
         String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);

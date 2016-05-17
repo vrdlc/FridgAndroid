@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItemDetailActivity extends AppCompatActivity {
-    @Bind(R.id.viewPager) ViewPager mViewPager;
+public class ItemDetailActivity extends AppCompatActivity  {
+    @Bind(R.id.itemViewPager) ViewPager mViewPager;
     private PagerAdapter adapterViewPager;
     ArrayList<Item> mItems = new ArrayList<>();
 
