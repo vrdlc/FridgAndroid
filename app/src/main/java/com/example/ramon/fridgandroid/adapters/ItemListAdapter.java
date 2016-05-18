@@ -30,7 +30,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> implem
     private Context mContext;
     private SharedPreferences mSharedPreferences;
 
-    @Bind(R.id.deleteButton) ImageView mDeleteButton;
+    @Bind(R.id.deleteButton) Button mDeleteButton;
 
 
     public ItemListAdapter(Context context, ArrayList<Item> items) {
@@ -52,7 +52,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> implem
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.deleteButton:
-                deleteItemFromFirebase();
+//                deleteItemFromFirebase();
+                Log.d("ItemListAdapter", "DId it work?");
                 Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
                 break;
             default:
