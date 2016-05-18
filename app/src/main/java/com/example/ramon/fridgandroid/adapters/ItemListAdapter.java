@@ -25,7 +25,7 @@ import butterknife.Bind;
 /**
  * Created by Ramon on 5/2/16.
  */
-public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> implements View.OnClickListener {
+public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     private ArrayList<Item> mItems = new ArrayList<>();
     private Context mContext;
     private SharedPreferences mSharedPreferences;
@@ -46,35 +46,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> implem
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_item, parent, false);
         ItemViewHolder viewHolder = new ItemViewHolder(view, mItems);
         return viewHolder;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.deleteButton:
-//                deleteItemFromFirebase();
-                Log.d("ItemListAdapter", "DId it work?");
-                Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
-
-
-        }
-    }
-
-    public void deleteItemFromFirebase() {
-
-        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-        Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
-
-        Item item = new Item();
-        Firebase itemRef = savedItemRef.push();
-        String keyId = itemRef.getKey();
-        item.setId(keyId);
-        itemRef.setValue("");
-        Log.v("WHEEEE", item.getId());
-
     }
 
     @Override
