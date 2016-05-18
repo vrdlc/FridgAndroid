@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.ramon.fridgandroid.R;
 import com.example.ramon.fridgandroid.holders.GroceryViewHolder;
@@ -78,6 +79,7 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<GroceryV
         Log.d("itemKey", itemKey + "");
         Log.d("ref", ref + "");
         ref.child(itemKey).updateChildren(pantry);
+        Toast.makeText(mContext, "Item moved to pantry list", Toast.LENGTH_LONG).show();
 
     }
 
