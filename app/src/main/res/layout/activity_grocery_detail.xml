@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ramon.fridgandroid.ui.GroceryDetailActivity">
+    tools:context="com.delacruz.ramon.fridgandroid.ui.GroceryDetailActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

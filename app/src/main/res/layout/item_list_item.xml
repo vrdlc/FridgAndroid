@@ -11,6 +11,7 @@
         <!--android:src="@drawable/ic_reorder_black_24dp"-->
         <!--android:scaleType="centerCrop"/>-->
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,18 +49,19 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_delete_forever_black_24dp"
-            android:id="@+id/deleteButton"
-            android:layout_gravity="right"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="53dp"
-            android:layout_marginEnd="53dp" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="Hi there!"
+        android:id="@+id/deleteButton"
+        android:layout_gravity="right"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="53dp"
+        android:layout_marginEnd="53dp" />
 
     </RelativeLayout>
+    <!--android:src="@drawable/ic_delete_forever_black_24dp"-->
 
 
 </RelativeLayout>

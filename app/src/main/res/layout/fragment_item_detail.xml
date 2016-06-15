@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ramon.fridgandroid.ui.ItemDetailFragment">
+    tools:context="com.delacruz.ramon.fridgandroid.ui.ItemDetailFragment">
 
     <LinearLayout
         android:orientation="vertical"
@@ -117,14 +117,15 @@
             </LinearLayout>
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Store Link Button?"
-                android:id="@+id/saveRestaurantButton"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorAccent"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="15sp" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/deleteButton"
+                android:layout_gravity="right"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="53dp"
+                android:layout_marginEnd="53dp" />
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>
