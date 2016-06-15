@@ -81,7 +81,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                         if (authData != null) {
                             String userUid = authData.getUid();
                             mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
-                            Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+                            Intent intent = new Intent(CreateAccountActivity.this, ItemActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();

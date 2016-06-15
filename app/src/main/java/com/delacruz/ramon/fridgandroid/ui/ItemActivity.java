@@ -1,6 +1,7 @@
 package com.delacruz.ramon.fridgandroid.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,12 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.delacruz.ramon.fridgandroid.R;
@@ -33,6 +35,10 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
     private Firebase mFirebaseItemsRef;
     private FirebaseItemListAdapter mAdapter;
     private SharedPreferences mSharedPreferences;
+    private Firebase mFirebaseRef;
+    private String mUid;
+    private Firebase mUserRef;
+
 
 
     @Bind(R.id.itemRecyclerView) RecyclerView mRecyclerView;
@@ -43,6 +49,11 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
 //    @Bind(R.id.notesEditText) EditText subEditNotes;
 //    @Bind (R.id.spinner) Spinner mSpinner;
 
+    //TODO
+    //Can I use Butterknife to bind views inside my dialog?
+    // Move logout/menu from Main to this activity
+    // make this activity launch
+    // Clean up code, delete pages that are no longer in use
 
 
 
@@ -57,6 +68,12 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
         mSaveFab.setOnClickListener(this);
 
         mFirebaseItemsRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUid);
+
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
 
 
         setUpFirebaseQuery();
@@ -74,13 +91,6 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
     private void openDialog() {
         LayoutInflater inflater = LayoutInflater.from(ItemActivity.this);
         View subView = inflater.inflate(R.layout.fragment_save_item, null);
-
-        //TODO
-        // BIND THESE THINGS W/ BUTTERKNIFE
-
-//        final ImageView subImageView = (ImageView) subView.findViewById(R.id.image);
-//        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
-//        subImageView.setImageDrawable(drawable);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Item To List");
@@ -130,6 +140,38 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
         });
 
         builder.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+//        if (id == R.id.action_pantry) {
+//            Intent intent = new Intent)
+//        }
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void logout() {
+        mFirebaseRef.unauth();
+        takeUserToLoginScreenOnUnAuth();
+    }
+
+    private void takeUserToLoginScreenOnUnAuth() {
+        Intent intent = new Intent(ItemActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void setUpFirebaseQuery() {
