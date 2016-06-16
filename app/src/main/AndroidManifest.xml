@@ -16,18 +16,25 @@
             android:theme="@style/NoActionBarTheme">
 
         </activity>
-        <activity android:name="com.delacruz.ramon.fridgandroid.ui.PantryActivity">
+
+        <activity android:name="com.delacruz.ramon.fridgandroid.ui.ItemActivity"
+            android:label="Shopping/Pantry Lists"/>
+
+        <activity android:name="com.delacruz.ramon.fridgandroid.ui.PantryActivity"
+            android:label="My Pantry List">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.delacruz.ramon.fridgandroid.ui.MainActivity" />
         </activity>
-        <activity android:name="com.delacruz.ramon.fridgandroid.ui.GroceryActivity">
+
+
+        <activity android:name="com.delacruz.ramon.fridgandroid.ui.GroceryActivity"
+            android:label="My Grocery List">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.delacruz.ramon.fridgandroid.ui.MainActivity" />
         </activity>
         <activity android:name="com.delacruz.ramon.fridgandroid.ui.ItemDetailActivity" />
-        <activity android:name="com.delacruz.ramon.fridgandroid.ui.ItemActivity" />
         <activity android:name="com.delacruz.ramon.fridgandroid.ui.PantryDetailActivity" />
         <activity android:name="com.delacruz.ramon.fridgandroid.ui.GroceryDetailActivity" />
         <activity android:name="com.delacruz.ramon.fridgandroid.ui.CreateAccountActivity"/>
