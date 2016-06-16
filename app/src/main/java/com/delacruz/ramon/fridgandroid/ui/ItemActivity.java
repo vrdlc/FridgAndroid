@@ -39,7 +39,8 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
     private String mUid;
     private Firebase mUserRef;
 
-
+    //TODO
+    //Take nav FAB buttons from "swipes" branch and try to implement them here
 
     @Bind(R.id.itemRecyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.saveFab) FloatingActionButton mSaveFab;
