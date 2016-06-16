@@ -65,8 +65,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> implem
                 break;
             default:
                 break;
-
-
         }
     }
 

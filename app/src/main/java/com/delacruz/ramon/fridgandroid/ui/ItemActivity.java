@@ -42,8 +42,9 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
 
 
     @Bind(R.id.itemRecyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.pantryFab) FloatingActionButton mPantryFab;
+    @Bind(R.id.groceryFab) FloatingActionButton mGroceryFab;
     @Bind(R.id.saveFab) FloatingActionButton mSaveFab;
-
 //    @Bind(R.id.nameEditText) EditText subEditText;
 //    @Bind(R.id.quantityEditText) EditText subEditQuantity;
 //    @Bind(R.id.notesEditText) EditText subEditNotes;
@@ -65,6 +66,8 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
         ButterKnife.bind(this);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mPantryFab.setOnClickListener(this);
+        mGroceryFab.setOnClickListener(this);
         mSaveFab.setOnClickListener(this);
 
         mFirebaseItemsRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
@@ -85,8 +88,23 @@ public class ItemActivity extends AppCompatActivity  implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        openDialog();
+        switch (v.getId()) {
+            case R.id.pantryFab:
+                Intent intentPantry = new Intent(ItemActivity.this, PantryActivity.class);
+                startActivity(intentPantry);
+                break;
+            case R.id.everythingFab:
+                Intent intentEverything = new Intent(ItemActivity.this, ItemActivity.class);
+                startActivity(intentEverything);
+                break;
+            case R.id.groceryFab:
+                Intent intentGrocery = new Intent(ItemActivity.this, GroceryActivity.class);
+                startActivity(intentGrocery);
+                break;
+            case R.id.saveFab:
+                openDialog();
         }
+    }
 
     private void openDialog() {
         LayoutInflater inflater = LayoutInflater.from(ItemActivity.this);

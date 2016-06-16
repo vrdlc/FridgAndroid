@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.delacruz.ramon.fridgandroid.R;
 import com.delacruz.ramon.fridgandroid.models.Item;
@@ -30,7 +32,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemDetailFragment extends Fragment implements View.OnClickListener {
+public class ItemDetailFragment extends Fragment {
 
     private SharedPreferences mSharedPreferences;
 
@@ -38,6 +40,7 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
     @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
     @Bind(R.id.detailTimestampTextView) TextView mTimestampTextView;
+    @Bind(R.id.deleteButton) Button mDeleteButton;
     //@Bind(R.id.updateButton) Button mUpdateButton;
 
     private Item mItem;
@@ -68,8 +71,6 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
         ButterKnife.bind(this, view);
 
         Firebase refListName = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(mItem.getId());
-        Log.d("PATH", refListName.toString());
-
         refListName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,8 +99,4 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 }

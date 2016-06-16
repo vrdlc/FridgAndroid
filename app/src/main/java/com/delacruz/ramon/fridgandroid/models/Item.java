@@ -33,6 +33,7 @@ public class Item {
         HashMap<String, Object> timestampLastChangedObj = new HashMap<>();
         timestampLastChangedObj.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
         this.timestampLastChanged = timestampLastChangedObj;
+        this.pushId = pushId;
     }
 
     public String getItemName() {

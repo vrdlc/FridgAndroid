@@ -1,12 +1,23 @@
 package com.delacruz.ramon.fridgandroid.ui;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.delacruz.ramon.fridgandroid.R;
 import com.delacruz.ramon.fridgandroid.adapters.PagerAdapter;
 import com.delacruz.ramon.fridgandroid.models.Item;
+import com.delacruz.ramon.fridgandroid.util.Constants;
+import com.firebase.client.Firebase;
 
 import org.parceler.Parcels;
 
@@ -32,4 +43,6 @@ public class GroceryDetailActivity extends AppCompatActivity {
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }
+
+
 }
