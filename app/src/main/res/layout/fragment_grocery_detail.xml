@@ -104,17 +104,26 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"/>
 
+
             </LinearLayout>
 
-            <Button
-                android:layout_width="match_parent"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/updateFab"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Store Link Button?"
-                android:id="@+id/saveRestaurantButton"
+                android:src="@drawable/ic_add_white_24dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/colorAccent"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="15sp" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+            <android.support.design.widget.FloatingActionButton
+
+                android:id="@+id/deleteFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_white_24dp"
+                android:layout_above="@+id/updateFab"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
     </LinearLayout>
 

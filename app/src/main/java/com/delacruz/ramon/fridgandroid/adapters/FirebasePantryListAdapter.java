@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.delacruz.ramon.fridgandroid.R;
 import com.delacruz.ramon.fridgandroid.holders.OnStartDragListener;
@@ -73,10 +74,8 @@ public class FirebasePantryListAdapter extends FirebaseRecyclerAdapter<PantryVie
         String itemKey = getItem(position).getId();
         Map<String, Object> pantry = new HashMap<String, Object>();
         pantry.put("chooseList", "grocery");
-        Log.d("pantry", pantry + "");
-        Log.d("itemKey", itemKey + "");
-        Log.d("ref", ref + "");
         ref.child(itemKey).updateChildren(pantry);
+        Toast.makeText(mContext.getApplicationContext(), "Moved to Grocery List", Toast.LENGTH_SHORT).show();
 
     }
 

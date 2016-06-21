@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +14,23 @@ import android.widget.TextView;
 
 import com.delacruz.ramon.fridgandroid.R;
 import com.delacruz.ramon.fridgandroid.models.Item;
+import com.delacruz.ramon.fridgandroid.util.Constants;
+import com.firebase.client.Firebase;
 
 import org.parceler.Parcels;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class PantryDetailFragment extends Fragment {
+public class PantryDetailFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences mSharedPreferences;
-
-    //WHEN I WANT TO ADD LINK FOR IMPLICIT INTENT, IMPLEMENT View.OnClickListener IN PUBLIC CLASS
 
     @Bind(R.id.detailItemNameTextView) TextView mNameTextView;
     @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
     @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
+    @Bind(R.id.updateFab) FloatingActionButton mUpdateFab;
+    @Bind(R.id.deleteFab) FloatingActionButton mDeleteFab;
 
     private Item mItem;
 
@@ -47,6 +52,7 @@ public class PantryDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mItem = Parcels.unwrap(getArguments().getParcelable("item"));
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
     }
 
     @Override
@@ -58,6 +64,8 @@ public class PantryDetailFragment extends Fragment {
         mQuantityTextView.setText("x " + mItem.getItemQuantity());
         mNotesTextView.setText(mItem.getItemNotes());
 
+        mUpdateFab.setOnClickListener(this);
+        mDeleteFab.setOnClickListener(this);
         return view;
     }
 
@@ -65,12 +73,19 @@ public class PantryDetailFragment extends Fragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.updateFab:
-                Intent intentGrocery = new Intent(PantryActivity.this, GroceryActivity.class);
-                startActivity(intentGrocery);
                 break;
             case R.id.deleteFab:
                 deleteItemFromFirebase();
                 break;
         }
+    }
+
+    public void deleteItemFromFirebase() {
+        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
+        Intent intent = new Intent(getActivity(), PantryActivity.class);
+        getActivity().startActivity(intent);
+
+        savedItemRef.removeValue();
     }
 }
