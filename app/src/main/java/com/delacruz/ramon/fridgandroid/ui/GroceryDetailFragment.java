@@ -1,15 +1,19 @@
 package com.delacruz.ramon.fridgandroid.ui;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.delacruz.ramon.fridgandroid.R;
 import com.delacruz.ramon.fridgandroid.models.Item;
@@ -26,6 +30,8 @@ import butterknife.ButterKnife;
  */
 public class GroceryDetailFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences mSharedPreferences;
+    private static Context mContext;
+    private Item mItem;
 
     @Bind(R.id.detailItemNameTextView) TextView mNameTextView;
     @Bind(R.id.detailQuantityTextView) TextView mQuantityTextView;
@@ -33,16 +39,16 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
     @Bind(R.id.updateFab) FloatingActionButton mUpdateFab;
     @Bind(R.id.deleteFab) FloatingActionButton mDeleteFab;
 
-    private Item mItem;
 
 
     public GroceryDetailFragment() {
         // Required empty public constructor
     }
 
-    public static GroceryDetailFragment newInstance(Item item) {
+    public static GroceryDetailFragment newInstance(Context context, Item item) {
         GroceryDetailFragment groceryDetailFragment = new GroceryDetailFragment();
         Bundle args = new Bundle();
+        mContext = context;
         args.putParcelable("item", Parcels.wrap(item));
         groceryDetailFragment.setArguments(args);
         return groceryDetailFragment;
@@ -76,9 +82,35 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
             case R.id.updateFab:
                 break;
             case R.id.deleteFab:
-                deleteItemFromFirebase();
+                openDeleteDialog();
                 break;
         }
+    }
+
+    private void openDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Add Item To List");
+        builder.setMessage("Are you sure you want to delete this item FOREVER?");
+        AlertDialog alertDialog = builder.create();
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteItemFromFirebase();
+                Toast.makeText(mContext.getApplicationContext(), "Deleted forEVER", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext.getApplicationContext(), "Phew! That was close!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.show();
     }
 
     public void deleteItemFromFirebase() {

@@ -28,7 +28,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
 
         mItems = Parcels.unwrap(getIntent().getParcelableExtra("items"));
         int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
-        adapterViewPager = new GroceryPagerAdapter(getSupportFragmentManager(), mItems);
+        adapterViewPager = new GroceryPagerAdapter(this, getSupportFragmentManager(), mItems);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }
