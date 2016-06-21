@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.delacruz.ramon.fridgandroid.ui.PantryDetailActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Item Name"
-                android:id="@+id/detailItemNameTextView"
+                android:id="@+id/pantryDetailNameTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textSize="20sp"
@@ -33,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="x 3"
-                android:id="@+id/detailQuantityTextView"
-                android:layout_alignTop="@+id/detailItemNameTextView"
+                android:id="@+id/pantryDetailQuantityTextView"
+                android:layout_alignTop="@+id/pantryDetailNameTextView"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:textColor="@color/colorAccent"
@@ -44,12 +46,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Item Notes"
-                android:id="@+id/detailNotesTextView"
-                android:layout_below="@+id/detailItemNameTextView"
+                android:id="@+id/pantryDetailNotesTextView"
+                android:layout_below="@+id/pantryDetailNameTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textColor="@color/colorSecondaryText"
                 android:textStyle="italic" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update Item"
+                android:id="@+id/pantryUpdateButton"
+                android:layout_below="@+id/pantryDetailNotesTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete Item"
+                android:id="@+id/pantryDeleteButton"
+                android:layout_alignTop="@+id/pantryUpdateButton"
+                android:layout_alignRight="@+id/pantryDetailQuantityTextView"
+                android:layout_alignEnd="@+id/pantryDetailQuantityTextView" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -106,24 +127,15 @@
 
             </LinearLayout>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/updateFab"
-                android:layout_width="wrap_content"
+            <Button
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_white_24dp"
+                android:text="Store Link Button?"
+                android:id="@+id/saveRestaurantButton"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-            <android.support.design.widget.FloatingActionButton
-
-                android:id="@+id/deleteFab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_white_24dp"
-                android:layout_above="@+id/updateFab"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="15sp" />
         </RelativeLayout>
     </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

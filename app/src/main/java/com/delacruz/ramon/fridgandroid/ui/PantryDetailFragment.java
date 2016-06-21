@@ -1,5 +1,6 @@
 package com.delacruz.ramon.fridgandroid.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -60,11 +61,16 @@ public class PantryDetailFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v == mSafeway) {
-//            Intent webIntent = new Intent(Intent.ACTION_VIEW, WHAT DO I PUT HERE TO GET LINK???)
-//            startActivity(webIntent);
-//        }
-//    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.updateFab:
+                Intent intentGrocery = new Intent(PantryActivity.this, GroceryActivity.class);
+                startActivity(intentGrocery);
+                break;
+            case R.id.deleteFab:
+                deleteItemFromFirebase();
+                break;
+        }
+    }
 }
