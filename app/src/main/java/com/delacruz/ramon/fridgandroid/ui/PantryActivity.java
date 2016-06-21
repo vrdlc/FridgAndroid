@@ -40,7 +40,6 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
     private ItemTouchHelper mItemTouchHelper;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    @Bind(R.id.everythingFab) FloatingActionButton mEverythingFab;
     @Bind(R.id.groceryFab) FloatingActionButton mGroceryFab;
     @Bind(R.id.saveFab) FloatingActionButton mSaveFab;
 
@@ -54,7 +53,6 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
-        mEverythingFab.setOnClickListener(this);
         mGroceryFab.setOnClickListener(this);
         mSaveFab.setOnClickListener(this);
 
@@ -91,10 +89,6 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
                 Intent intentGrocery = new Intent(PantryActivity.this, GroceryActivity.class);
                 startActivity(intentGrocery);
                 break;
-            case R.id.everythingFab:
-                Intent intentEverything = new Intent(PantryActivity.this, ItemActivity.class);
-                startActivity(intentEverything);
-                break;
             case R.id.saveFab:
                 openDialog();
                 break;
@@ -115,7 +109,6 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
         final EditText subEditQuantity = (EditText) subView.findViewById(R.id.quantityEditText);
         final EditText subEditNotes = (EditText) subView.findViewById(R.id.notesEditText);
         final Spinner mSpinner = (Spinner) subView.findViewById(R.id.spinner);
-//                final Button addToList = (Button) subView.findViewById(R.id.addToList);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.spinner_array, android.R.layout.simple_spinner_item);

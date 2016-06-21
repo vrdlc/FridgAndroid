@@ -5,24 +5,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.delacruz.ramon.fridgandroid.models.Item;
-import com.delacruz.ramon.fridgandroid.ui.ItemDetailFragment;
+import com.delacruz.ramon.fridgandroid.ui.PantryDetailFragment;
 
 import java.util.ArrayList;
 
 /**
- * Created by Ramon on 5/2/16.
+ * Created by Ramon on 6/18/16.
  */
-public class PagerAdapter extends FragmentPagerAdapter {
+public class PantryPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Item> mItems;
 
-    public PagerAdapter(FragmentManager fm, ArrayList<Item> items) {
+    public PantryPagerAdapter(FragmentManager fm, ArrayList<Item> items) {
         super(fm);
         mItems = items;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ItemDetailFragment.newInstance(mItems.get(position));
+        return PantryDetailFragment.newInstance(mItems.get(position));
     }
 
     @Override

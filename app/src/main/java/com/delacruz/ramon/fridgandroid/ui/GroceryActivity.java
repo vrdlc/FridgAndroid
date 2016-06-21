@@ -39,7 +39,6 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.pantryFab) FloatingActionButton mPantryFab;
-    @Bind(R.id.everythingFab) FloatingActionButton mEverthingFab;
     @Bind(R.id.saveFab) FloatingActionButton mSaveFab;
 
     @Override
@@ -52,7 +51,6 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mPantryFab.setOnClickListener(this);
-        mEverthingFab.setOnClickListener(this);
         mSaveFab.setOnClickListener(this);
 
         setUpFirebaseQuery();
@@ -87,10 +85,6 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
                 Intent intentGrocery = new Intent(GroceryActivity.this, PantryActivity.class);
                 startActivity(intentGrocery);
                 break;
-            case R.id.everythingFab:
-                Intent intentEverything = new Intent(GroceryActivity.this, ItemActivity.class);
-                startActivity(intentEverything);
-                break;
             case R.id.saveFab:
                 openDialog();
                 break;
@@ -111,7 +105,6 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
         final EditText subEditQuantity = (EditText) subView.findViewById(R.id.quantityEditText);
         final EditText subEditNotes = (EditText) subView.findViewById(R.id.notesEditText);
         final Spinner mSpinner = (Spinner) subView.findViewById(R.id.spinner);
-//                final Button addToList = (Button) subView.findViewById(R.id.addToList);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.spinner_array, android.R.layout.simple_spinner_item);

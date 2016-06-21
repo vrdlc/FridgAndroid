@@ -50,7 +50,7 @@ public class GroceryViewHolder extends RecyclerView.ViewHolder implements ItemTo
     public void bindItem(Item item) {
         mNameTextView.setText(item.getItemName());
         mQuantityTextView.setText(item.getItemQuantity());
-        mNotesTextView.setText(item.getItemNotes());;
+        mNotesTextView.setText(item.getItemNotes());
     }
 
     @Override
@@ -62,6 +62,4 @@ public class GroceryViewHolder extends RecyclerView.ViewHolder implements ItemTo
     public void onItemClear() {
 
     }
-
-
 }
