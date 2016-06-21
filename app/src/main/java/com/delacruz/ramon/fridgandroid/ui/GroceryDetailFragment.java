@@ -12,6 +12,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,11 +83,76 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.updateFab:
+                openUpdateDialog();
                 break;
             case R.id.deleteFab:
                 openDeleteDialog();
                 break;
         }
+    }
+
+    private void openUpdateDialog() {
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View subView = inflater.inflate(R.layout.fragment_save_item, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Update Item");
+        builder.setMessage("Enter Item Info, Select List, and Click 'Okay'");
+        builder.setView(subView);
+        AlertDialog alertDialog = builder.create();
+
+        final EditText subEditText = (EditText) subView.findViewById(R.id.nameEditText);
+        final EditText subEditQuantity = (EditText) subView.findViewById(R.id.quantityEditText);
+        final EditText subEditNotes = (EditText) subView.findViewById(R.id.notesEditText);
+        final Spinner mSpinner = (Spinner) subView.findViewById(R.id.spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
+                R.array.spinner_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = subEditText.getText().toString();
+                String quantity = subEditQuantity.getText().toString();
+                String notes = subEditNotes.getText().toString();
+                int listId = mSpinner.getSelectedItemPosition();
+
+
+                String list;
+                if (listId == 0) {
+                    list = "pantry";
+                } else {
+                    list = "grocery";
+                }
+                updateItemInFirebase(name, quantity, notes, list);
+
+                Toast.makeText(mContext.getApplicationContext(), name + " updated", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext.getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void updateItemInFirebase(String name, String quantity, String notes, String list) {
+        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
+
+        Item item = new Item(name, quantity, notes, list);
+        Firebase itemRef = savedItemRef.push();
+        String keyId = itemRef.getKey();
+        item.setId(keyId);
+        itemRef.setValue(item);
     }
 
     private void openDeleteDialog() {
