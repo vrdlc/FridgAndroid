@@ -82,10 +82,12 @@ public class PantryDetailFragment extends Fragment implements View.OnClickListen
 
     public void deleteItemFromFirebase() {
         String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String id = mItem.getId();
         Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
-        Intent intent = new Intent(getActivity(), PantryActivity.class);
+        Firebase finalItem = savedItemRef.child(id);
+        Intent intent = new Intent(getActivity(), GroceryActivity.class);
         getActivity().startActivity(intent);
-
-        savedItemRef.removeValue();
+        Log.d("Saved Item Ref", "" + savedItemRef);
+        finalItem.removeValue();
     }
 }

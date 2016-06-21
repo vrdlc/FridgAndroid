@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +128,7 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
                 } else {
                     list = "grocery";
                 }
-                updateItemInFirebase(name, quantity, notes, list);
+//                updateItemInFirebase(name, quantity, notes, list);
 
                 Toast.makeText(mContext.getApplicationContext(), name + " updated", Toast.LENGTH_SHORT).show();
 
@@ -147,12 +148,10 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
     public void updateItemInFirebase(String name, String quantity, String notes, String list) {
         String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
         Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
-
-        Item item = new Item(name, quantity, notes, list);
-        Firebase itemRef = savedItemRef.push();
-        String keyId = itemRef.getKey();
-        item.setId(keyId);
-        itemRef.setValue(item);
+            Log.d("Key UID", userUid + "");
+//        String keyId = savedItemRef.getKey();
+//        item.setId(keyId);
+//        savedItemRef.setValue(item);
     }
 
     private void openDeleteDialog() {
@@ -183,10 +182,11 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
 
     public void deleteItemFromFirebase() {
         String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String id = mItem.getId();
         Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
+        Firebase finalItem = savedItemRef.child(id);
         Intent intent = new Intent(getActivity(), GroceryActivity.class);
         getActivity().startActivity(intent);
-
-        savedItemRef.removeValue();
+        finalItem.removeValue();
     }
 }
