@@ -49,6 +49,7 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
         setContentView(R.layout.activity_pantry);
         ButterKnife.bind(this);
 
+        Firebase.setAndroidContext(this);
         mFirebasePantryRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 

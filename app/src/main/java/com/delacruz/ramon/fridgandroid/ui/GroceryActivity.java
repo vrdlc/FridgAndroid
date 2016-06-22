@@ -47,6 +47,7 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
         setContentView(R.layout.activity_grocery);
         ButterKnife.bind(this);
 
+        Firebase.setAndroidContext(this);
         mFirebaseGroceryRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -106,6 +107,7 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
         final EditText subEditNotes = (EditText) subView.findViewById(R.id.notesEditText);
         final Spinner mSpinner = (Spinner) subView.findViewById(R.id.spinner);
 
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -115,11 +117,15 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                subEditText.setText("You need an item name!");
+                subEditQuantity.setText("1");
+                subEditNotes.setText("No notes?");
+
                 String name = subEditText.getText().toString();
                 String quantity = subEditQuantity.getText().toString();
                 String notes = subEditNotes.getText().toString();
                 int listId = mSpinner.getSelectedItemPosition();
-
 
                 String list;
                 if (listId == 0) {
@@ -150,6 +156,7 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
         Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
 
         Item item = new Item(name, quantity, notes, list);
+
         Firebase itemRef = savedItemRef.push();
         String keyId = itemRef.getKey();
         item.setId(keyId);

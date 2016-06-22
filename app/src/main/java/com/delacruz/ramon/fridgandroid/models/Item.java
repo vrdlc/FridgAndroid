@@ -39,6 +39,18 @@ public class Item {
         return itemName;
     }
 
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setItemQuantity(String itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
+    public void setItemNotes(String itemNotes) {
+        this.itemNotes = itemNotes;
+    }
+
     public String getItemQuantity() {
         return itemQuantity;
     }

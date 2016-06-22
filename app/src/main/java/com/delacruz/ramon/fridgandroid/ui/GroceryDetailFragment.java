@@ -45,6 +45,8 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
 
 
 
+
+
     public GroceryDetailFragment() {
         // Required empty public constructor
     }
@@ -84,7 +86,8 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.updateFab:
-                openUpdateDialog();
+//                openUpdateDialog();
+                //UPDATE ONLY WORKS ON EACH NEW ITEM ONE OR TWO TIMES, THEN I GET ERROR "java.lang.NullPointerException: Can't pass null for argument 'pathString' in child()
                 break;
             case R.id.deleteFab:
                 openDeleteDialog();
@@ -102,6 +105,8 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
         builder.setView(subView);
         AlertDialog alertDialog = builder.create();
 
+        Item item = mItem;
+
         final EditText subEditText = (EditText) subView.findViewById(R.id.nameEditText);
         final EditText subEditQuantity = (EditText) subView.findViewById(R.id.quantityEditText);
         final EditText subEditNotes = (EditText) subView.findViewById(R.id.notesEditText);
@@ -111,6 +116,11 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
                 R.array.spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
+
+        subEditText.setText(item.getItemName());
+        subEditQuantity.setText(item.getItemQuantity());
+        subEditNotes.setText(item.getItemNotes());
+
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
@@ -128,7 +138,7 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
                 } else {
                     list = "grocery";
                 }
-//                updateItemInFirebase(name, quantity, notes, list);
+                updateItemInFirebase(name, quantity, notes, list);
 
                 Toast.makeText(mContext.getApplicationContext(), name + " updated", Toast.LENGTH_SHORT).show();
 
@@ -147,11 +157,16 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
 
     public void updateItemInFirebase(String name, String quantity, String notes, String list) {
         String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String id = mItem.getId();
         Firebase savedItemRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL).child(userUid);
-            Log.d("Key UID", userUid + "");
-//        String keyId = savedItemRef.getKey();
-//        item.setId(keyId);
-//        savedItemRef.setValue(item);
+        Item item = new Item(name, quantity, notes, list);
+
+
+        Firebase updatedItem = savedItemRef.child(id); //UPDATE ERROR POINTS HERE <------
+        Log.d("saved item", savedItemRef + "");
+        Intent intent = new Intent(getActivity(), GroceryActivity.class);
+        getActivity().startActivity(intent);
+        updatedItem.setValue(item);
     }
 
     private void openDeleteDialog() {
