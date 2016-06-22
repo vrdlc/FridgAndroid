@@ -29,9 +29,6 @@ import org.parceler.Parcels;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by Ramon on 5/6/16.
- */
 public class GroceryDetailFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences mSharedPreferences;
     private static Context mContext;
@@ -42,8 +39,6 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
     @Bind(R.id.detailNotesTextView) TextView mNotesTextView;
     @Bind(R.id.updateFab) FloatingActionButton mUpdateFab;
     @Bind(R.id.deleteFab) FloatingActionButton mDeleteFab;
-
-
 
 
 
@@ -74,11 +69,10 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
 
         mNameTextView.setText(mItem.getItemName());
         mQuantityTextView.setText("x " + mItem.getItemQuantity());
-        mNotesTextView.setText(mItem.getItemNotes());
+        mNotesTextView.setText("Notes: " + mItem.getItemNotes());
 
         mUpdateFab.setOnClickListener(this);
         mDeleteFab.setOnClickListener(this);
-
         return view;
     }
 
@@ -171,7 +165,7 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
 
     private void openDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("Add Item To List");
+        builder.setTitle("Remove Item From List");
         builder.setMessage("Are you sure you want to delete this item FOREVER?");
         AlertDialog alertDialog = builder.create();
 

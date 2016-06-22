@@ -25,7 +25,6 @@ public class GroceryViewHolder extends RecyclerView.ViewHolder implements ItemTo
     @Bind(R.id.nameTextView) public TextView mNameTextView;
     @Bind(R.id.quantityTextView) TextView mQuantityTextView;
     @Bind(R.id.notesTextView) TextView mNotesTextView;
-//    @Bind(R.id.imageView) ImageView mImageView;
 
     private Context mContext;
     private ArrayList<Item> mItems = new ArrayList<>();
@@ -49,8 +48,8 @@ public class GroceryViewHolder extends RecyclerView.ViewHolder implements ItemTo
 
     public void bindItem(Item item) {
         mNameTextView.setText(item.getItemName());
-        mQuantityTextView.setText(item.getItemQuantity());
-        mNotesTextView.setText(item.getItemNotes());
+        mQuantityTextView.setText("x " + item.getItemQuantity());
+        mNotesTextView.setText("Notes: " + item.getItemNotes());
     }
 
     @Override

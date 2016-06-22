@@ -118,10 +118,6 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                subEditText.setText("You need an item name!");
-                subEditQuantity.setText("1");
-                subEditNotes.setText("No notes?");
-
                 String name = subEditText.getText().toString();
                 String quantity = subEditQuantity.getText().toString();
                 String notes = subEditNotes.getText().toString();
