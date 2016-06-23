@@ -17,9 +17,10 @@ public class PantryPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Item> mItems;
     private Context mContext;
 
-    public PantryPagerAdapter(FragmentManager fm, ArrayList<Item> items) {
+    public PantryPagerAdapter(Context context, FragmentManager fm, ArrayList<Item> items) {
         super(fm);
         mItems = items;
+        mContext = context;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class PantryDetailActivity extends AppCompatActivity {
 
         mItems = Parcels.unwrap(getIntent().getParcelableExtra("items"));
         int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
-        adapterViewPager = new PantryPagerAdapter(getSupportFragmentManager(), mItems);
+        adapterViewPager = new PantryPagerAdapter(this,getSupportFragmentManager(), mItems);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }
