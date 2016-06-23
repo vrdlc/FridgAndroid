@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.delacruz.ramon.fridgandroid.ui.LoginActivity">
-    android:background="@color/colorPrimary">
+    tools:context="com.delacruz.ramon.fridgandroid.ui.LoginActivity"
+    android:background="@drawable/fridge3">
 
     <TextView
         android:layout_width="match_parent"
@@ -20,13 +20,12 @@
         android:layout_alignParentTop="true"
         android:paddingTop="55dp"
         android:paddingBottom="55dp"
-        android:background="@color/colorTextIcons"/>
+        />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:paddingLeft="10dp"
         android:paddingTop="30dp"
         android:paddingRight="10dp"
@@ -42,7 +41,7 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:hint="Email"
-            android:textColorHint="@color/colorTextIcons"
+            android:textColorHint="@color/colorAccent"
             android:layout_marginTop="30dp"
             android:textSize="20sp"/>
 
@@ -53,7 +52,7 @@
             android:inputType="textPassword"
             android:padding="10dp"
             android:hint="Password"
-            android:textColorHint="@color/colorTextIcons"
+            android:textColorHint="@color/colorAccent"
             android:textSize="20sp"/>
 
         <Button
@@ -62,15 +61,15 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Log in"
-            android:background="@color/colorAccent"
+
             android:layout_marginTop="15dp"
-            android:textColor="@color/colorTextIcons" />
+            android:textColor="@color/colorAccent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/colorTextIcons"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="Don't have an account? Sign up here!"
