@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.delacruz.ramon.fridgandroid">
+    package="com.delacruz.ramon.fridg">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,15 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.PantryActivity"
+            android:name="com.delacruz.ramon.fridg.ui.PantryActivity"
             android:label="My Pantry List" />
         <activity
-            android:name=".ui.GroceryActivity"
+            android:name="com.delacruz.ramon.fridg.ui.GroceryActivity"
             android:label="My Grocery List" />
-        <activity android:name=".ui.PantryDetailActivity" />
-        <activity android:name=".ui.GroceryDetailActivity" />
-        <activity android:name=".ui.CreateAccountActivity" />
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name="com.delacruz.ramon.fridg.ui.PantryDetailActivity" />
+        <activity android:name="com.delacruz.ramon.fridg.ui.GroceryDetailActivity" />
+        <activity android:name="com.delacruz.ramon.fridg.ui.CreateAccountActivity" />
+        <activity android:name="com.delacruz.ramon.fridg.ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
