@@ -1,10 +1,22 @@
 <resources>
     <string name="app_name">FridgAndroid</string>
 
-    <string-array name="pantry_array">
-        <item></item>
+    <string-array name="spinner_array">
+        <item>Add to Pantry</item>
+        <item>Add to Shopping List</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_notes_scrolling">NotesScrollingActivity</string>
+    <!--<string name="about_text1">FridgAndroid is currently being created by Virgilio Ramon de la Cruz, 2016. It came about one day when I realized that I had multiple half-bags of flour at home because I could never remember exactly what staples and long term dry goods I had at home while at the store. After poking around the app store for at time, I failed to find an app that did the specific things I needed: keep a record of everything at home and move them to a shopping list. It didn't seem like it should be that hard (I wasn't wrong, but I wasn't right either...</string>-->
+    <!--<string name="about_text2">I made this for my family to use, and honestly never thought it'd actually get this far. I hope it works so well for you that you forget that you're even using it. This is very much a work in progress, so hopefully you'll stick around to see what it is exactly I want this to be.</string>-->
+    <string name="thanks_text">Special thanks to Roast Beef Kazenzakis, whose Egg and Milk Minder set the gears in motion one day at the supermarket.</string>
+    <string name="bullet_list">
+        <li> Ability to share list with other users</li>\n
+        <li> Ability to take photo of item to add to item notes</li>\n
+        <li> Ongoing notepad to hold notes, messages, to do lists, etc.</li>\n
+        <li> Add ability to arrange items by category (dairy, meat, produce, etc.)</li>
+    </string>
+
+    <string name="action_settings">Settings</string>
 </resources>
