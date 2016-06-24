@@ -13,6 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -38,6 +41,7 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
     private FirebasePantryListAdapter mAdapter;
     private SharedPreferences mSharedPreferences;
     private ItemTouchHelper mItemTouchHelper;
+    private Firebase mFirebaseRef;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.groceryFab) FloatingActionButton mGroceryFab;
@@ -50,6 +54,8 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
         ButterKnife.bind(this);
 
         Firebase.setAndroidContext(this);
+
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         mFirebasePantryRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -60,6 +66,23 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
 
         setUpFirebaseQuery();
         setUpRecyclerView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setUpFirebaseQuery() {
@@ -159,5 +182,17 @@ public class PantryActivity extends AppCompatActivity implements OnStartDragList
         String keyId = itemRef.getKey();
         item.setId(keyId);
         itemRef.setValue(item);
+    }
+
+    protected void logout() {
+        mFirebaseRef.unauth();
+        takeUserToLoginScreenOnUnAuth();
+    }
+
+    private void takeUserToLoginScreenOnUnAuth() {
+        Intent intent = new Intent(PantryActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

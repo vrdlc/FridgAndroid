@@ -12,6 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -29,6 +32,7 @@ import com.firebase.client.Query;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import layout.AboutActivity;
 
 public class GroceryActivity extends AppCompatActivity implements OnStartDragListener, View.OnClickListener {
     private Query mQuery;
@@ -36,6 +40,8 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
     private FirebaseGroceryListAdapter mAdapter;
     private SharedPreferences mSharedPreferences;
     private ItemTouchHelper mItemTouchHelper;
+    private Firebase mFirebaseRef;
+
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.pantryFab) FloatingActionButton mPantryFab;
@@ -48,6 +54,7 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
         ButterKnife.bind(this);
 
         Firebase.setAndroidContext(this);
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         mFirebaseGroceryRef = new Firebase(Constants.FIREBASE_SAVED_ITEM_URL);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -56,6 +63,28 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
 
         setUpFirebaseQuery();
         setUpRecyclerView();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        if (id == R.id.action_about) {
+            Intent intentAbout = new Intent(GroceryActivity.this, AboutActivity.class);
+            startActivity(intentAbout);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setUpFirebaseQuery() {
@@ -157,6 +186,19 @@ public class GroceryActivity extends AppCompatActivity implements OnStartDragLis
         String keyId = itemRef.getKey();
         item.setId(keyId);
         itemRef.setValue(item);
+    }
+
+
+    protected void logout() {
+        mFirebaseRef.unauth();
+        takeUserToLoginScreenOnUnAuth();
+    }
+
+    private void takeUserToLoginScreenOnUnAuth() {
+        Intent intent = new Intent(GroceryActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
 }

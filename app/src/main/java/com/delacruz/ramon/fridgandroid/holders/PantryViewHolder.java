@@ -50,7 +50,7 @@ public class PantryViewHolder extends RecyclerView.ViewHolder {
 
     public void bindItem(Item item) {
         mNameTextView.setText(item.getItemName());
-        mQuantityTextView.setText(item.getItemQuantity());
-        mNotesTextView.setText(item.getItemNotes());
+        mQuantityTextView.setText("x " + item.getItemQuantity());
+        mNotesTextView.setText("Notes: " + item.getItemNotes());
     }
 }

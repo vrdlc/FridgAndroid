@@ -48,12 +48,12 @@ public class PantryDetailFragment extends Fragment implements View.OnClickListen
     }
 
     public static PantryDetailFragment newInstance(Context context, Item item) {
-        PantryDetailFragment groceryDetailFragment = new PantryDetailFragment();
+        PantryDetailFragment pantryDetailFragment = new PantryDetailFragment();
         Bundle args = new Bundle();
         mContext = context;
         args.putParcelable("item", Parcels.wrap(item));
-        groceryDetailFragment.setArguments(args);
-        return groceryDetailFragment;
+        pantryDetailFragment.setArguments(args);
+        return pantryDetailFragment;
     }
 
     @Override
