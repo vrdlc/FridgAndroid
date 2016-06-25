@@ -1,15 +1,3 @@
-TO DO:
-
-* Add swipe to change lists if possible
-* Add material design + button to MainActivity
-* Udacity Course is Firebase Basics
-* Add multiple users
-* Add timestamp to Pantry List
-* Add multiple users
-* Add login and password?
-
-DON'T FORGET TO MAKE gradle.properties FILE AND PUT API KEYS/FIREBASE URLS/ETC INSIDE
-
 # _FridgAndroid App_
 Updating our Intro/Ember Fridg App for use on Android phones
 
