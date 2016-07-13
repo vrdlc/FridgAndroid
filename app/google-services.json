@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "273240358137",
+    "firebase_url": "https://fridg-b2451.firebaseio.com",
+    "project_id": "fridg-b2451",
+    "storage_bucket": "fridg-b2451.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273240358137:android:11437b19a332b325",
+        "android_client_info": {
+          "package_name": "delacruz.fridg30"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "273240358137-feu6ale7trt9v7ipr02sjhcn8c6joc1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxgC1ZxFGkLdR7sOPn2Et8CdfleE_8w08"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
