@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -41,7 +42,7 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
     private SharedPreferences mSharedPreferences;
     private static Context mContext;
     private Item mItem;
-    private DatabaseReference mGroceryDatabase;
+    private static DatabaseReference mGroceryDatabase;
 
 
     @Bind(R.id.detailItemNameTextView) TextView mNameTextView;
@@ -51,6 +52,7 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
     @Bind(R.id.deleteFab) FloatingActionButton mDeleteFab;
 
     public static GroceryDetailFragment newInstance(Context context, Item item) {
+        mContext = context;
         GroceryDetailFragment groceryDetailFragment = new GroceryDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable("item", Parcels.wrap(item));
@@ -170,7 +172,7 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("Remove Item From List");
         builder.setMessage("Are you sure you want to delete this item FOREVER?");
-        AlertDialog alertDialog = builder.create();
+//        AlertDialog alertDialog = builder.create();
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
@@ -196,7 +198,10 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
         String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
         String id = mItem.getId();
 
+        mGroceryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
+
         DatabaseReference itemRef = mGroceryDatabase.getRef();
+        Log.d("DetailFragment", "Grocery DB " + mGroceryDatabase);
 
         DatabaseReference finalItem = itemRef.child(id);
         Intent intent = new Intent(getActivity(), GroceryActivity.class);

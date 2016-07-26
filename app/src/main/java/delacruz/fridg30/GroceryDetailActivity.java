@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -26,11 +28,9 @@ public class GroceryDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery_detail);
         ButterKnife.bind(this);
-
         mItems = Parcels.unwrap(getIntent().getParcelableExtra("items"));
         int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
         adapterViewPager = new GroceryPagerAdapter(this, getSupportFragmentManager(), mItems);
-        Log.d("DetailActivity", mItems + "");
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }

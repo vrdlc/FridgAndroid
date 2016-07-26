@@ -18,8 +18,8 @@ public class GroceryPagerAdapter extends FragmentPagerAdapter {
     public GroceryPagerAdapter(Context context, FragmentManager fm, ArrayList<Item> items) {
         super(fm);
         mItems = items;
-        Log.d("PagerAdapter", mItems + "");
         mContext = context;
+
     }
 
     @Override
