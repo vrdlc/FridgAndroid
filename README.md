@@ -11,17 +11,19 @@ FridgAndroid will save a shopping list and will keep track of the goods you have
 
 * Clone this repository
 * Open the project in Android Studio
-* Run the program in the phone emulator of your choice
+* Run the program in the phone emulator of your choice or
+* [Download from the Google Play Store!]([Google Play Store](https://play.google.com/store/apps/details?id=com.delacruz.ramon.fridg))
 
 
 ## Known Bugs
 
-Currently cannot save user generated data or pass it into the Expandable List View (may replace Expandable List View with a Recycler View)
+Currently undergoing complete overhaul and refactor. Previous version of the app can be found at the [Google Play Store](https://play.google.com/store/apps/details?id=com.delacruz.ramon.fridg)
 
 ## Technologies Used
 
 * [Java](https://java.com/en/download/)
 * [Android Studio](http://developer.android.com/index.html)
+* [Firebase](https://www.firebase.com/)
 * [Git](https://git-scm.com/)
 * [Gradle](http://gradle.org/)
 
