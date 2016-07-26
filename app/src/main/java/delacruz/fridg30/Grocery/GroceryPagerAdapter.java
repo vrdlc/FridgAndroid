@@ -1,15 +1,14 @@
-package delacruz.fridg30;
+package delacruz.fridg30.Grocery;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 import delacruz.fridg30.Models.Item;
-import delacruz.fridg30.ui.GroceryDetailFragment;
+import delacruz.fridg30.Grocery.GroceryDetailFragment;
 
 public class GroceryPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Item> mItems;

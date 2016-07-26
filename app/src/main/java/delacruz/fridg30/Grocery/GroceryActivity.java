@@ -4,7 +4,7 @@
 //Add Categorie field to DB
 //Can I make modular categorie view holders? ie one view holder that can repeat dynamically for every category on a page, but only when category is being used?
 
-package delacruz.fridg30;
+package delacruz.fridg30.Grocery;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,7 +33,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import delacruz.fridg30.Constants;
 import delacruz.fridg30.Models.Item;
+import delacruz.fridg30.OnStartDragListener;
+import delacruz.fridg30.R;
 
 public class GroceryActivity extends AppCompatActivity implements View.OnClickListener {
 

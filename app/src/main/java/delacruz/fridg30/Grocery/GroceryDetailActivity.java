@@ -1,11 +1,8 @@
-package delacruz.fridg30;
+package delacruz.fridg30.Grocery;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-import com.google.firebase.database.DatabaseReference;
 
 import org.parceler.Parcels;
 
@@ -14,6 +11,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import delacruz.fridg30.Models.Item;
+import delacruz.fridg30.R;
 
 /**
  * Created by Ramon on 7/16/16.

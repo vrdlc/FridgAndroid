@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".GroceryActivity"
+            android:name=".Grocery.GroceryActivity"
             android:label="My Shopping List"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GroceryDetailActivity"/>
+            android:name=".Grocery.GroceryDetailActivity"/>
     </application>
 
 </manifest>

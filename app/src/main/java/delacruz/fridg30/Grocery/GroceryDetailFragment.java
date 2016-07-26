@@ -1,4 +1,4 @@
-package delacruz.fridg30.ui;
+package delacruz.fridg30.Grocery;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,7 +27,7 @@ import org.parceler.Parcels;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import delacruz.fridg30.Constants;
-import delacruz.fridg30.GroceryActivity;
+import delacruz.fridg30.Grocery.GroceryActivity;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.R;
 

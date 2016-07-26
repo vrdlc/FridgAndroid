@@ -1,4 +1,4 @@
-package delacruz.fridg30;
+package delacruz.fridg30.Grocery;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,10 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import delacruz.fridg30.Constants;
+import delacruz.fridg30.Grocery.GroceryDetailActivity;
 import delacruz.fridg30.Models.Item;
+import delacruz.fridg30.R;
 
 /**
  * Created by Ramon on 7/18/16.
