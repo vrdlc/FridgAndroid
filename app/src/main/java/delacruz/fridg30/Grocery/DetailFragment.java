@@ -27,14 +27,13 @@ import org.parceler.Parcels;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import delacruz.fridg30.Constants;
-import delacruz.fridg30.Grocery.GroceryActivity;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.R;
 
 /**
  * Created by Ramon on 7/16/16.
  */
-public class GroceryDetailFragment extends Fragment implements View.OnClickListener {
+public class DetailFragment extends Fragment implements View.OnClickListener {
 
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
@@ -51,9 +50,9 @@ public class GroceryDetailFragment extends Fragment implements View.OnClickListe
     @Bind(R.id.updateFab) FloatingActionButton mUpdateFab;
     @Bind(R.id.deleteFab) FloatingActionButton mDeleteFab;
 
-    public static GroceryDetailFragment newInstance(Context context, Item item) {
+    public static DetailFragment newInstance(Context context, Item item) {
         mContext = context;
-        GroceryDetailFragment groceryDetailFragment = new GroceryDetailFragment();
+        DetailFragment groceryDetailFragment = new DetailFragment();
         Bundle args = new Bundle();
         args.putParcelable("item", Parcels.wrap(item));
         groceryDetailFragment.setArguments(args);

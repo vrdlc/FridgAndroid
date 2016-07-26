@@ -16,9 +16,9 @@ import delacruz.fridg30.R;
 /**
  * Created by Ramon on 7/16/16.
  */
-public class GroceryDetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity {
     @Bind(R.id.viewPager) ViewPager mViewPager;
-    private GroceryPagerAdapter adapterViewPager;
+    private PagerAdapter adapterViewPager;
     ArrayList<Item> mItems = new ArrayList<>();
 
     @Override
@@ -28,7 +28,7 @@ public class GroceryDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mItems = Parcels.unwrap(getIntent().getParcelableExtra("items"));
         int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
-        adapterViewPager = new GroceryPagerAdapter(this, getSupportFragmentManager(), mItems);
+        adapterViewPager = new PagerAdapter(this, getSupportFragmentManager(), mItems);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }

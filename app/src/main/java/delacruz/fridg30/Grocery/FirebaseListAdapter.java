@@ -19,7 +19,6 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import delacruz.fridg30.Grocery.GroceryDetailActivity;
 import delacruz.fridg30.ItemTouchHelperAdapter;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.OnStartDragListener;
@@ -27,7 +26,7 @@ import delacruz.fridg30.OnStartDragListener;
 /**
  * Created by Ramon on 7/18/16.
  */
-public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseGroceryViewHolder> implements ItemTouchHelperAdapter {
+public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseViewHolder> implements ItemTouchHelperAdapter {
 
     private DatabaseReference mDatabaseReference;
     private OnStartDragListener mDragStartListener;
@@ -35,9 +34,9 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<Item, Fi
     private ArrayList<Item> mItems;
     private ChildEventListener mChildEventListener;
 
-    public FirebaseGroceryListAdapter(Class<Item> modelClass, int modelLayout,
-                                         Class<FirebaseGroceryViewHolder> viewHolderClass,
-                                         Query query, OnStartDragListener onStartDragListener, Context context) {
+    public FirebaseListAdapter(Class<Item> modelClass, int modelLayout,
+                               Class<FirebaseViewHolder> viewHolderClass,
+                               Query query, OnStartDragListener onStartDragListener, Context context) {
 
         super(modelClass, modelLayout, viewHolderClass, query);
         mDatabaseReference = query.getRef();
@@ -73,8 +72,13 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<Item, Fi
         });
     }
     @Override
-    protected void populateViewHolder(final FirebaseGroceryViewHolder viewHolder, Item model, int position) {
-        viewHolder.bindItem(model);
+    protected void populateViewHolder(final FirebaseViewHolder viewHolder, Item model, int position) {
+
+//        if(model.getChooseList().equals("pantry")) {
+            viewHolder.bindItem(model);
+//        } else if(model.getChooseList().equals("grocery")){
+//            viewHolder.bindGroceryItem(model);
+//        }
 
         viewHolder.mItemNameView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -92,9 +96,9 @@ public class FirebaseGroceryListAdapter extends FirebaseRecyclerAdapter<Item, Fi
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, GroceryDetailActivity.class);
+                Intent intent = new Intent(mContext, DetailActivity.class);
                 intent.putExtra("position", viewHolder.getAdapterPosition());
-                intent.putExtra("restaurants", Parcels.wrap(mItems));
+                intent.putExtra("items", Parcels.wrap(mItems));
                 mContext.startActivity(intent);
             }
         });

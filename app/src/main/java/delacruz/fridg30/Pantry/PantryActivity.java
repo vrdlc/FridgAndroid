@@ -2,10 +2,10 @@ package delacruz.fridg30.Pantry;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,8 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import delacruz.fridg30.Constants;
-import delacruz.fridg30.Grocery.FirebaseGroceryListAdapter;
-import delacruz.fridg30.Grocery.FirebaseGroceryViewHolder;
+import delacruz.fridg30.Grocery.FirebaseListAdapter;
+import delacruz.fridg30.Grocery.FirebaseViewHolder;
+import delacruz.fridg30.Grocery.GroceryActivity;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.OnStartDragListener;
 import delacruz.fridg30.R;
@@ -38,8 +39,9 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
     private DatabaseReference mGroceryDatabase;
     private ValueEventListener mValueEventListener;
     private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
-    private FirebaseGroceryListAdapter mFirebasePantryListAdapter;
+    private FirebaseListAdapter mFirebaseListAdapter;
     private OnStartDragListener mOnDragListener;
+    private String uId;
 
 
     private static final String TAG = PantryActivity.class.getSimpleName();
@@ -76,9 +78,10 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.groceryFab:
-                Intent intentGrocery = new Intent(PantryActivity.this, PantryActivity.class);
+            case R.id.pantryFab:
+                Intent intentGrocery = new Intent(PantryActivity.this, GroceryActivity.class);
                 startActivity(intentGrocery);
+                finish();
                 break;
             case R.id.saveFab:
                 openDialog();
@@ -98,16 +101,16 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
     private void setUpFirebaseAdapter() {
 
         Query query = FirebaseDatabase.getInstance()
-                .getReference(Constants.FIREBASE_LOCATION_ITEM);
-//                .child(uid)
-//                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
+                .getReference(Constants.FIREBASE_LOCATION_ITEM)
+//                .child(uId)
+                .orderByChild("chooseList").equalTo("pantry");
 
-        mFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Item, FirebaseGroceryViewHolder>
-                (Item.class, R.layout.universal_list_item, FirebaseGroceryViewHolder.class,
-                        mGroceryDatabase) {
+        mFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Item, FirebaseViewHolder>
+                (Item.class, R.layout.universal_list_item, FirebaseViewHolder.class,
+                        query) {
 
             @Override
-            protected void populateViewHolder(FirebaseGroceryViewHolder viewHolder,
+            protected void populateViewHolder(FirebaseViewHolder viewHolder,
                                               Item model, int position) {
                 viewHolder.bindItem(model);
             }
@@ -115,14 +118,10 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseRecyclerAdapter);
-
-        mFirebasePantryListAdapter = new FirebaseGroceryListAdapter(Item.class,
-                R.layout.universal_list_item, FirebaseGroceryViewHolder.class,
-                query, mOnDragListener, this);
     }
 
     private void openDialog() {
-        LayoutInflater inflater = LayoutInflater.from(GroceryActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(PantryActivity.this);
         View subView = inflater.inflate(R.layout.fragment_save_item, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -168,7 +167,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(GroceryActivity.this, "Cancel", Toast.LENGTH_LONG).show();
+                Toast.makeText(PantryActivity.this, "Cancel", Toast.LENGTH_LONG).show();
             }
         });
 

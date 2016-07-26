@@ -3,6 +3,7 @@ package delacruz.fridg30.Grocery;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,14 +18,13 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 
 import delacruz.fridg30.Constants;
-import delacruz.fridg30.Grocery.GroceryDetailActivity;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.R;
 
 /**
  * Created by Ramon on 7/18/16.
  */
-public class FirebaseGroceryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
     public TextView mItemNameView;
@@ -32,7 +32,7 @@ public class FirebaseGroceryViewHolder extends RecyclerView.ViewHolder implement
     View mView;
     Context mContext;
 
-    public FirebaseGroceryViewHolder(View itemView) {
+    public FirebaseViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
@@ -40,7 +40,7 @@ public class FirebaseGroceryViewHolder extends RecyclerView.ViewHolder implement
     }
 
     public void bindItem(Item item) {
-        mItemNameView= (TextView) mView.findViewById(R.id.nameTextView);
+        mItemNameView = (TextView) mView.findViewById(R.id.nameTextView);
         TextView quantityTextView = (TextView) mView.findViewById(R.id.quantityTextView);
         TextView notesTextView = (TextView) mView.findViewById(R.id.notesTextView);
 
@@ -48,6 +48,25 @@ public class FirebaseGroceryViewHolder extends RecyclerView.ViewHolder implement
         quantityTextView.setText("x " + item.getItemQuantity());
         notesTextView.setText("Notes: " + item.getItemNotes());
     }
+
+//        if(item.getChooseList().equals("pantry")) {
+//            mItemNameView.setText(item.getItemName());
+//            quantityTextView.setText("x " + item.getItemQuantity());
+//            notesTextView.setText("Notes: " + item.getItemNotes());
+//        }
+//    }
+//
+//    public void bindGroceryItem(Item item) {
+//        mItemNameView= (TextView) mView.findViewById(R.id.nameTextView);
+//        TextView quantityTextView = (TextView) mView.findViewById(R.id.quantityTextView);
+//        TextView notesTextView = (TextView) mView.findViewById(R.id.notesTextView);
+//
+//        if(item.getChooseList().equals("grocery")) {
+//            mItemNameView.setText(item.getItemName());
+//            quantityTextView.setText("x " + item.getItemQuantity());
+//            notesTextView.setText("Notes: " + item.getItemNotes());
+//        }
+//    }
 
     @Override
     public void onClick(View view) {
@@ -63,7 +82,7 @@ public class FirebaseGroceryViewHolder extends RecyclerView.ViewHolder implement
 
                 int itemPosition = getLayoutPosition();
 
-                Intent intent = new Intent(mContext, GroceryDetailActivity.class);
+                Intent intent = new Intent(mContext, DetailActivity.class);
                 intent.putExtra("position", itemPosition + "");
                 intent.putExtra("items", Parcels.wrap(items));
 

@@ -36,6 +36,7 @@ import butterknife.ButterKnife;
 import delacruz.fridg30.Constants;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.OnStartDragListener;
+import delacruz.fridg30.Pantry.PantryActivity;
 import delacruz.fridg30.R;
 
 public class GroceryActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,8 +44,9 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
     private DatabaseReference mGroceryDatabase;
     private ValueEventListener mValueEventListener;
     private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
-    private FirebaseGroceryListAdapter mFirebaseGroceryListAdapter;
+    private FirebaseListAdapter mFirebaseListAdapter;
     private OnStartDragListener mOnDragListener;
+    private String uId;
 
 
     private static final String TAG = GroceryActivity.class.getSimpleName();
@@ -82,8 +84,9 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.groceryFab:
-                Intent intentGrocery = new Intent(GroceryActivity.this, GroceryActivity.class);
+                Intent intentGrocery = new Intent(GroceryActivity.this, PantryActivity.class);
                 startActivity(intentGrocery);
+                finish();
                 break;
             case R.id.saveFab:
                 openDialog();
@@ -104,15 +107,15 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference(Constants.FIREBASE_LOCATION_ITEM)
-//                .child(uid)
+//                .child(uId)
                 .orderByChild("chooseList").equalTo("grocery");
 
-        mFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Item, FirebaseGroceryViewHolder>
-                (Item.class, R.layout.universal_list_item, FirebaseGroceryViewHolder.class,
-                        mGroceryDatabase) {
+        mFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Item, FirebaseViewHolder>
+                (Item.class, R.layout.universal_list_item, FirebaseViewHolder.class,
+                        query) {
 
             @Override
-            protected void populateViewHolder(FirebaseGroceryViewHolder viewHolder,
+            protected void populateViewHolder(FirebaseViewHolder viewHolder,
                                               Item model, int position) {
                 viewHolder.bindItem(model);
             }
@@ -120,10 +123,6 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseRecyclerAdapter);
-
-        mFirebaseGroceryListAdapter = new FirebaseGroceryListAdapter(Item.class,
-                R.layout.universal_list_item, FirebaseGroceryViewHolder.class,
-                query, mOnDragListener, this);
     }
 
     private void openDialog() {

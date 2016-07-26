@@ -37,7 +37,7 @@
 //            public void onClick(View v) {
 //                Log.d("ViewHolder", mItems + "");
 //                int itemPosition = getLayoutPosition();
-//                Intent intent = new Intent(mContext, GroceryDetailActivity.class);
+//                Intent intent = new Intent(mContext, DetailActivity.class);
 //                intent.putExtra("position", itemPosition + "");
 //                intent.putExtra("items", Parcels.wrap(mItems));
 //                mContext.startActivity(intent);

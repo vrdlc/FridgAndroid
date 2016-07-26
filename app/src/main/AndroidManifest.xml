@@ -12,16 +12,18 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Grocery.GroceryActivity"
-            android:label="My Shopping List"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="My Shopping List">
+            <!--android:theme="@style/AppTheme.NoActionBar"-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Grocery.GroceryDetailActivity" />
-        <activity android:name=".Pantry.PantryActivity"></activity>
+        <activity android:name=".Grocery.DetailActivity" />
+        <activity android:name=".Pantry.PantryActivity"
+            android:label="Pantry List"></activity>
     </application>
 
 </manifest>

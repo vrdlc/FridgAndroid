@@ -7,7 +7,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Item Name"
         android:id="@+id/nameTextView"
         android:textSize="30sp"
         android:textStyle="bold"/>
@@ -15,7 +14,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Item Notes"
         android:id="@+id/notesTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -24,7 +22,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="x Quantity"
         android:id="@+id/quantityTextView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

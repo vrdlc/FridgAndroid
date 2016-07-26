@@ -8,13 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 import delacruz.fridg30.Models.Item;
-import delacruz.fridg30.Grocery.GroceryDetailFragment;
 
-public class GroceryPagerAdapter extends FragmentPagerAdapter {
+public class PagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Item> mItems;
     private Context mContext;
 
-    public GroceryPagerAdapter(Context context, FragmentManager fm, ArrayList<Item> items) {
+    public PagerAdapter(Context context, FragmentManager fm, ArrayList<Item> items) {
         super(fm);
         mItems = items;
         mContext = context;
@@ -23,7 +22,7 @@ public class GroceryPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return GroceryDetailFragment.newInstance(mContext, mItems.get(position));
+        return DetailFragment.newInstance(mContext, mItems.get(position));
     }
 
     @Override
