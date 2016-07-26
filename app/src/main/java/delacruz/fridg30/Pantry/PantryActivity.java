@@ -1,17 +1,11 @@
-//TODO
-//While rewriting this code, make sure bare minimum files are carried over. Lots of redundencies in old code
-//Use new Firebase code
-//Add Categorie field to DB
-//Can I make modular categorie view holders? ie one view holder that can repeat dynamically for every category on a page, but only when category is being used?
-
-package delacruz.fridg30.Grocery;
+package delacruz.fridg30.Pantry;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,34 +24,35 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import delacruz.fridg30.Constants;
+import delacruz.fridg30.Grocery.FirebaseGroceryListAdapter;
+import delacruz.fridg30.Grocery.FirebaseGroceryViewHolder;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.OnStartDragListener;
 import delacruz.fridg30.R;
 
-public class GroceryActivity extends AppCompatActivity implements View.OnClickListener {
+public class PantryActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseReference mGroceryDatabase;
     private ValueEventListener mValueEventListener;
     private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
-    private FirebaseGroceryListAdapter mFirebaseGroceryListAdapter;
+    private FirebaseGroceryListAdapter mFirebasePantryListAdapter;
     private OnStartDragListener mOnDragListener;
 
 
-    private static final String TAG = GroceryActivity.class.getSimpleName();
+    private static final String TAG = PantryActivity.class.getSimpleName();
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    @Bind(R.id.groceryFab) FloatingActionButton mGroceryFab;
+    @Bind(R.id.pantryFab) FloatingActionButton mPantryFab;
     @Bind(R.id.saveFab) FloatingActionButton mSaveFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grocery);
+        setContentView(R.layout.activity_pantry);
         ButterKnife.bind(this);
-        mGroceryFab.setOnClickListener(this);
+        mPantryFab.setOnClickListener(this);
         mSaveFab.setOnClickListener(this);
 
         // Write a message to the database
@@ -82,7 +77,7 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.groceryFab:
-                Intent intentGrocery = new Intent(GroceryActivity.this, GroceryActivity.class);
+                Intent intentGrocery = new Intent(PantryActivity.this, PantryActivity.class);
                 startActivity(intentGrocery);
                 break;
             case R.id.saveFab:
@@ -103,9 +98,9 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
     private void setUpFirebaseAdapter() {
 
         Query query = FirebaseDatabase.getInstance()
-                .getReference(Constants.FIREBASE_LOCATION_ITEM)
+                .getReference(Constants.FIREBASE_LOCATION_ITEM);
 //                .child(uid)
-                .orderByChild("chooseList").equalTo("grocery");
+//                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
 
         mFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Item, FirebaseGroceryViewHolder>
                 (Item.class, R.layout.universal_list_item, FirebaseGroceryViewHolder.class,
@@ -121,7 +116,7 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseRecyclerAdapter);
 
-        mFirebaseGroceryListAdapter = new FirebaseGroceryListAdapter(Item.class,
+        mFirebasePantryListAdapter = new FirebaseGroceryListAdapter(Item.class,
                 R.layout.universal_list_item, FirebaseGroceryViewHolder.class,
                 query, mOnDragListener, this);
     }
