@@ -24,4 +24,6 @@ public class Constants {
     public static final String FIREBASE_URL_USERS = FIREBASE_URL +"/" + FIREBASE_LOCATION_USERS;
 
     public static final String FIREBASE_UID_ITEM_NODE = FIREBASE_SAVED_ITEM_URL + "/" + KEY_UID;
+
+    public static final String FIREBASE_QUERY_INDEX = "index";
 }
