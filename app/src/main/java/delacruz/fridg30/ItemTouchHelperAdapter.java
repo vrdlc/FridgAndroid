@@ -6,4 +6,5 @@ package delacruz.fridg30;
 public interface ItemTouchHelperAdapter {
     boolean onItemMove(int fromPosition, int toPosition);
     void onItemDismiss(int position);
+    void onItemValueChange(int position);
 }

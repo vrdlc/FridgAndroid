@@ -2,7 +2,9 @@ package delacruz.fridg30.Pantry;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +44,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseListAdapter mFirebaseListAdapter;
     private OnStartDragListener mOnDragListener;
     private String uId;
+    private SharedPreferences mSharedPreferences;
 
 
     private static final String TAG = PantryActivity.class.getSimpleName();
@@ -56,6 +59,9 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         ButterKnife.bind(this);
         mPantryFab.setOnClickListener(this);
         mSaveFab.setOnClickListener(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
 
         // Write a message to the database
         mGroceryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);

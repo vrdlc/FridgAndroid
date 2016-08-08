@@ -6,14 +6,18 @@
 
 package delacruz.fridg30.Grocery;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,15 +42,19 @@ import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.OnStartDragListener;
 import delacruz.fridg30.Pantry.PantryActivity;
 import delacruz.fridg30.R;
+import delacruz.fridg30.SimpleItemTouchHelperCallback;
 
 public class GroceryActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseReference mGroceryDatabase;
     private ValueEventListener mValueEventListener;
-    private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
+//    private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
     private FirebaseListAdapter mFirebaseListAdapter;
     private OnStartDragListener mOnDragListener;
     private String uId;
+    private SharedPreferences mSharedPreferences;
+    private ItemTouchHelper mItemTouchHelper;
+    private Context mContext;
 
 
     private static final String TAG = GroceryActivity.class.getSimpleName();
@@ -61,6 +69,10 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
         mGroceryFab.setOnClickListener(this);
         mSaveFab.setOnClickListener(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mContext = this;
+
 
         // Write a message to the database
         mGroceryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
@@ -99,7 +111,7 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
     public void onDestroy() {
 //        mGroceryDatabase.removeEventListener(mValueEventListener);
         super.onDestroy();
-        mFirebaseRecyclerAdapter.cleanup();
+        mFirebaseListAdapter.cleanup();
 
     }
 
@@ -110,9 +122,9 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
 //                .child(uId)
                 .orderByChild("chooseList").equalTo("grocery");
 
-        mFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Item, FirebaseViewHolder>
+        mFirebaseListAdapter = new FirebaseListAdapter
                 (Item.class, R.layout.universal_list_item, FirebaseViewHolder.class,
-                        query) {
+                        query, mOnDragListener, mContext) {
 
             @Override
             protected void populateViewHolder(FirebaseViewHolder viewHolder,
@@ -122,7 +134,12 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
         };
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mFirebaseRecyclerAdapter);
+        mRecyclerView.setAdapter(mFirebaseListAdapter);
+
+        Log.d("GroceryActivity", mFirebaseListAdapter + "");
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseListAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void openDialog() {

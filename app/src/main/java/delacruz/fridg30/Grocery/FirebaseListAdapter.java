@@ -3,22 +3,29 @@ package delacruz.fridg30.Grocery;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
+import delacruz.fridg30.Constants;
 import delacruz.fridg30.ItemTouchHelperAdapter;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.OnStartDragListener;
@@ -74,11 +81,7 @@ public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseV
     @Override
     protected void populateViewHolder(final FirebaseViewHolder viewHolder, Item model, int position) {
 
-//        if(model.getChooseList().equals("pantry")) {
-            viewHolder.bindItem(model);
-//        } else if(model.getChooseList().equals("grocery")){
-//            viewHolder.bindGroceryItem(model);
-//        }
+        viewHolder.bindItem(model);
 
         viewHolder.mItemNameView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -104,6 +107,21 @@ public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseV
         });
 
     }
+
+    @Override
+    public void onItemValueChange(int position) {
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+//        String uid = sharedPreferences.getString(Constants.KEY_UID, null);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_SAVED_ITEM_URL);         //DON'T FORGET getChild(uid);
+//THIS IS CALLED IN THE SimpleItemTouchHelperCallback
+
+        String itemKey = getItem(position).getId();
+        Map<String, Object> item = new HashMap<String, Object>();
+        item.put("chooseList", "pantry");
+        ref.child(itemKey).updateChildren(item);
+        Toast.makeText(mContext.getApplicationContext(), "Moved to Pantry List", Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {

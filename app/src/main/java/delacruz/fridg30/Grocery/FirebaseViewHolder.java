@@ -49,25 +49,6 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
         notesTextView.setText("Notes: " + item.getItemNotes());
     }
 
-//        if(item.getChooseList().equals("pantry")) {
-//            mItemNameView.setText(item.getItemName());
-//            quantityTextView.setText("x " + item.getItemQuantity());
-//            notesTextView.setText("Notes: " + item.getItemNotes());
-//        }
-//    }
-//
-//    public void bindGroceryItem(Item item) {
-//        mItemNameView= (TextView) mView.findViewById(R.id.nameTextView);
-//        TextView quantityTextView = (TextView) mView.findViewById(R.id.quantityTextView);
-//        TextView notesTextView = (TextView) mView.findViewById(R.id.notesTextView);
-//
-//        if(item.getChooseList().equals("grocery")) {
-//            mItemNameView.setText(item.getItemName());
-//            quantityTextView.setText("x " + item.getItemQuantity());
-//            notesTextView.setText("Notes: " + item.getItemNotes());
-//        }
-//    }
-
     @Override
     public void onClick(View view) {
         final ArrayList<Item> items = new ArrayList<>();

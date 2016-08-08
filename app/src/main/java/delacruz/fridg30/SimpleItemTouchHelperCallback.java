@@ -2,6 +2,7 @@ package delacruz.fridg30;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 
 /**
  * Created by Ramon on 7/18/16.
@@ -12,6 +13,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
+        Log.d("SImple Constructor", mAdapter + "");
     }
 
     @Override
@@ -42,6 +44,8 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
+        Log.d("SimpleItemTouch", mAdapter + "");
+        Log.d("SimpleItemTouch", viewHolder.getAdapterPosition() + "");
         mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
     }
 
