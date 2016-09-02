@@ -1,14 +1,17 @@
 package delacruz.fridg30.Grocery;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -71,8 +74,7 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.delete) {
-            Log.d("I'm in the if!", "Hi!");
-            deleteItemFromFirebase();
+            openDeleteDialog();
         } else {
             final ArrayList<Item> items = new ArrayList<>();
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
@@ -98,6 +100,32 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
                 }
             });
         }
+    }
+
+    private void openDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Remove Item From List");
+        builder.setMessage("Are you sure you want to delete this item FOREVER?");
+//        AlertDialog alertDialog = builder.create();
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteItemFromFirebase();
+                Toast.makeText(mContext.getApplicationContext(), "Deleted forEVER", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext.getApplicationContext(), "Phew! That was close!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.show();
     }
 
     public void deleteItemFromFirebase() {

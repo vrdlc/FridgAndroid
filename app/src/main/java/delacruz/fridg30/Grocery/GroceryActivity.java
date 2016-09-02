@@ -94,7 +94,6 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        Log.d("I'm in the activity", "CLICKY");
         switch (view.getId()) {
             case R.id.groceryFab:
                 Intent intentPantry = new Intent(GroceryActivity.this, PantryActivity.class);
@@ -120,6 +119,7 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference(Constants.FIREBASE_LOCATION_ITEM)
+                //MAKE NEW CONSTANT FIREBASE_LOCATION_GROCERY
 //                .child(uId)
                 .orderByChild("chooseList").equalTo("grocery");
 
