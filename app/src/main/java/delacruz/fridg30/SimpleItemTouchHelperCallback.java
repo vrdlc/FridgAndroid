@@ -13,7 +13,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
-        Log.d("SImple Constructor", mAdapter + "");
+        Log.d("Simple Constructor", mAdapter + "");
     }
 
     @Override
@@ -44,9 +44,11 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
-        Log.d("SimpleItemTouch", mAdapter + "");
-        Log.d("SimpleItemTouch", viewHolder.getAdapterPosition() + "");
-        mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+//        Log.d("SimpleItemTouch", mAdapter + "");
+//        Log.d("SimpleItemTouch", viewHolder.getAdapterPosition() + "");
+//        mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+        mAdapter.onItemValueChange(viewHolder.getAdapterPosition());
+
     }
 
     @Override

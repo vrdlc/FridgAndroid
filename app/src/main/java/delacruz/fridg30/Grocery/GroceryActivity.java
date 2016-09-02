@@ -111,7 +111,7 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
     public void onDestroy() {
 //        mGroceryDatabase.removeEventListener(mValueEventListener);
         super.onDestroy();
-        mFirebaseListAdapter.cleanup();
+//        mFirebaseListAdapter.cleanup();
 
     }
 
@@ -136,7 +136,6 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseListAdapter);
 
-        Log.d("GroceryActivity", mFirebaseListAdapter + "");
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseListAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);

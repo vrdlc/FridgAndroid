@@ -1,15 +1,18 @@
-package delacruz.fridg30.Grocery;
-
+package delacruz.fridg30.Pantry;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v4.view.MotionEventCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import delacruz.fridg30.Constants;
+import delacruz.fridg30.Grocery.DetailActivity;
+import delacruz.fridg30.Grocery.FirebaseViewHolder;
+import delacruz.fridg30.ItemTouchHelperAdapter;
+import delacruz.fridg30.Models.Item;
+import delacruz.fridg30.OnStartDragListener;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
@@ -26,35 +29,32 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import delacruz.fridg30.Constants;
-import delacruz.fridg30.ItemTouchHelperAdapter;
-import delacruz.fridg30.Models.Item;
-import delacruz.fridg30.OnStartDragListener;
-
 /**
- * Created by Ramon on 7/18/16.
+ * Created by Ramon on 8/8/16.
  */
-public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseViewHolder> implements ItemTouchHelperAdapter {
+public class PantryFirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseViewHolder> implements ItemTouchHelperAdapter {
 
     private DatabaseReference mDatabaseReference;
     private OnStartDragListener mDragStartListener;
     private Context mContext;
+    private Item mItem;
     private ArrayList<Item> mItems;
     private ChildEventListener mChildEventListener;
 
-    public FirebaseListAdapter(Class<Item> modelClass, int modelLayout,
-                               Class<FirebaseViewHolder> viewHolderClass,
-                               Query query, OnStartDragListener onStartDragListener, Context context) {
-
+    public PantryFirebaseListAdapter(Class<Item> modelClass, int modelLayout,
+                                     Class<FirebaseViewHolder> viewHolderClass,
+                                     Query query, OnStartDragListener onStartDragListener, Context context) {
         super(modelClass, modelLayout, viewHolderClass, query);
         mDatabaseReference = query.getRef();
         mDragStartListener = onStartDragListener;
         mContext = context;
+        mItem = new Item(); //May  not need this
         mItems = new ArrayList<Item>();
 
         mChildEventListener = mDatabaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
                 mItems.add(dataSnapshot.getValue(Item.class));
             }
 
@@ -79,6 +79,7 @@ public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseV
             }
         });
     }
+
     @Override
     protected void populateViewHolder(final FirebaseViewHolder viewHolder, Item model, int position) {
 
@@ -95,7 +96,6 @@ public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseV
             }
 
         });
-
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -108,21 +108,21 @@ public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseV
         });
 
     }
-
     @Override
     public void onItemValueChange(int position) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String uid = sharedPreferences.getString(Constants.KEY_UID, null);
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+//        String uid = sharedPreferences.getString(Constants.KEY_UID, null);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);         //DON'T FORGET getChild(uid);
 //THIS IS CALLED IN THE SimpleItemTouchHelperCallback
 
+        //CAN I MAKE THIS AN "IF" STATEMENT TO MAKE THIS FILE UNIVERSAL?
         String itemKey = getItem(position).getId();
-        Log.d("ItemKey", itemKey + "");
         Map<String, Object> item = new HashMap<String, Object>();
-        item.put("chooseList", "pantry");
+        item.put("chooseList", "grocery");
         ref.child(itemKey).updateChildren(item);
-        Toast.makeText(mContext.getApplicationContext(), "Moved to Pantry List", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext.getApplicationContext(), "Moved to Grocery List", Toast.LENGTH_SHORT).show();
     }
+
 
 
     @Override
@@ -138,21 +138,22 @@ public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseV
         getRef(position).removeValue();
     }
 
-//    private void setIndexInFirebase() {
-//        for (Item item : mItems) {
-//            int index = mItems.indexOf(item);
-//            DatabaseReference ref = getRef(index);
-//            item.setIndex(Integer.toString(index));
-//            Log.d("index no", index + "");
-//            ref.setValue(item);
-//        }
-//    }
+    private void setIndexInFirebase() {
+        for (Item item : mItems) {
+            int index = mItems.indexOf(item);
+            DatabaseReference ref = getRef(index);
+            item.setIndex(Integer.toString(index));
+            ref.setValue(item);
+        }
+    }
 
     @Override
     public void cleanup() {
         super.cleanup();
-//        setIndexInFirebase();
+        setIndexInFirebase();
         mItems.clear();
         mDatabaseReference.removeEventListener(mChildEventListener);
     }
- }
+    }
+
+

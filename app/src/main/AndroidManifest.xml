@@ -13,7 +13,8 @@
         <activity
             android:name=".Grocery.GroceryActivity"
             android:label="My Shopping List">
-            <!--android:theme="@style/AppTheme.NoActionBar"-->
+
+            <!-- android:theme="@style/AppTheme.NoActionBar" -->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +23,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Grocery.DetailActivity" />
-        <activity android:name=".Pantry.PantryActivity"
-            android:label="Pantry List"></activity>
+        <activity
+            android:name=".Pantry.PantryActivity"
+            android:label="Pantry List" />
+        <activity android:name=".Pantry.PantryDetailActivity"></activity>
     </application>
 
 </manifest>

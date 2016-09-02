@@ -1,5 +1,6 @@
 package delacruz.fridg30.Pantry;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +42,13 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
 
     private DatabaseReference mGroceryDatabase;
     private ValueEventListener mValueEventListener;
-    private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
+//    private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
     private FirebaseListAdapter mFirebaseListAdapter;
     private OnStartDragListener mOnDragListener;
     private String uId;
     private SharedPreferences mSharedPreferences;
+    private ItemTouchHelper mItemTouchHelper;
+    private Context mContext;
 
 
     private static final String TAG = PantryActivity.class.getSimpleName();
@@ -100,7 +104,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
     public void onDestroy() {
 //        mGroceryDatabase.removeEventListener(mValueEventListener);
         super.onDestroy();
-        mFirebaseRecyclerAdapter.cleanup();
+//        mFirebaseListAdapter.cleanup();
 
     }
 
@@ -111,9 +115,9 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
 //                .child(uId)
                 .orderByChild("chooseList").equalTo("pantry");
 
-        mFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Item, FirebaseViewHolder>
+        mFirebaseListAdapter = new FirebaseListAdapter
                 (Item.class, R.layout.universal_list_item, FirebaseViewHolder.class,
-                        query) {
+                        query, mOnDragListener, mContext) {
 
             @Override
             protected void populateViewHolder(FirebaseViewHolder viewHolder,
@@ -123,7 +127,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         };
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mFirebaseRecyclerAdapter);
+        mRecyclerView.setAdapter(mFirebaseListAdapter);
     }
 
     private void openDialog() {

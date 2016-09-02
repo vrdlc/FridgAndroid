@@ -34,7 +34,7 @@ public class Item {
         HashMap<String, Object> timestampLastChangedObj = new HashMap<>();
         timestampLastChangedObj.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
         this.timestampLastChanged = timestampLastChangedObj;
-        this.index = "not_specified";
+//        this.index = "not_specified";
     }
 
     public String getItemName() {
