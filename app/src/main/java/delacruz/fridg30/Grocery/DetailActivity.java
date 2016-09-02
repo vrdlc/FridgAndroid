@@ -30,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
         int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
         adapterViewPager = new PagerAdapter(this, getSupportFragmentManager(), mItems);
         mViewPager.setAdapter(adapterViewPager);
+        //This ViewPager allows all details to be viewed in order
         mViewPager.setCurrentItem(startingPosition);
     }
 }

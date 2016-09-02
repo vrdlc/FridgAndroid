@@ -2,9 +2,12 @@ package delacruz.fridg30.Grocery;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,17 +20,27 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import delacruz.fridg30.Constants;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.R;
 
 /**
- * Created by Ramon on 7/18/16.
+TODO
+ Try moving DatabaseREference into its own method in the constructor
  */
 public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
     public TextView mItemNameView;
+    public Button mDeleteButton;
+
+    private SharedPreferences mSharedPreferences;
+    private static DatabaseReference mDatabase;
+    private Item mItem;
+
+
 
     View mView;
     Context mContext;
@@ -37,43 +50,63 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
         mView = itemView;
         mContext = itemView.getContext();
         itemView.setOnClickListener(this);
+
     }
 
     public void bindItem(Item item) {
         mItemNameView = (TextView) mView.findViewById(R.id.nameTextView);
         TextView quantityTextView = (TextView) mView.findViewById(R.id.quantityTextView);
         TextView notesTextView = (TextView) mView.findViewById(R.id.notesTextView);
+        mDeleteButton = (Button) mView.findViewById(R.id.delete);
+        mDeleteButton.setOnClickListener(this);
+
+        mItem = item;
 
         mItemNameView.setText(item.getItemName());
         quantityTextView.setText("x " + item.getItemQuantity());
         notesTextView.setText("Notes: " + item.getItemNotes());
+
     }
 
     @Override
     public void onClick(View view) {
-        final ArrayList<Item> items = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        if (view.getId() == R.id.delete) {
+            Log.d("I'm in the if!", "Hi!");
+            deleteItemFromFirebase();
+        } else {
+            final ArrayList<Item> items = new ArrayList<>();
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    items.add(snapshot.getValue(Item.class));
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        items.add(snapshot.getValue(Item.class));
+                    }
+
+                    int itemPosition = getLayoutPosition();
+
+                    Intent intent = new Intent(mContext, DetailActivity.class);
+                    intent.putExtra("position", itemPosition + "");
+                    intent.putExtra("items", Parcels.wrap(items));
+
+                    mContext.startActivity(intent);
                 }
 
-                int itemPosition = getLayoutPosition();
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+    }
 
-                Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra("position", itemPosition + "");
-                intent.putExtra("items", Parcels.wrap(items));
-
-                mContext.startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+    public void deleteItemFromFirebase() {
+//        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String id = mItem.getId();
+        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
+        DatabaseReference itemRef = mDatabase.getRef();
+        DatabaseReference finalItem = itemRef.child(id);
+        finalItem.removeValue();
     }
 
 
