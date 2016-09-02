@@ -37,13 +37,14 @@ import delacruz.fridg30.Grocery.GroceryActivity;
 import delacruz.fridg30.Models.Item;
 import delacruz.fridg30.OnStartDragListener;
 import delacruz.fridg30.R;
+import delacruz.fridg30.SimpleItemTouchHelperCallback;
 
 public class PantryActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private DatabaseReference mGroceryDatabase;
+    private DatabaseReference mPantryDatabase;
     private ValueEventListener mValueEventListener;
 //    private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
-    private FirebaseListAdapter mFirebaseListAdapter;
+    private PantryFirebaseListAdapter mFirebaseListAdapter;
     private OnStartDragListener mOnDragListener;
     private String uId;
     private SharedPreferences mSharedPreferences;
@@ -65,13 +66,14 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         mSaveFab.setOnClickListener(this);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mContext = this;
 
 
         // Write a message to the database
-        mGroceryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
+        mPantryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
         setUpFirebaseAdapter();
 
-        mGroceryDatabase.addValueEventListener(new ValueEventListener() {
+        mPantryDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Item item = dataSnapshot.getValue(Item.class);
@@ -115,7 +117,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
 //                .child(uId)
                 .orderByChild("chooseList").equalTo("pantry");
 
-        mFirebaseListAdapter = new FirebaseListAdapter
+        mFirebaseListAdapter = new PantryFirebaseListAdapter
                 (Item.class, R.layout.universal_list_item, FirebaseViewHolder.class,
                         query, mOnDragListener, mContext) {
 
@@ -128,6 +130,10 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseListAdapter);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseListAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void openDialog() {
@@ -188,7 +194,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
 //        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
         Item item = new Item(name, quantity, notes, list);
 
-        DatabaseReference itemRef = mGroceryDatabase.push();
+        DatabaseReference itemRef = mPantryDatabase.push();
         String keyId = itemRef.getKey();
         item.setId(keyId);
         itemRef.setValue(item);

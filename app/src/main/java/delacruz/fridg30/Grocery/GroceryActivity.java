@@ -96,8 +96,8 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.groceryFab:
-                Intent intentGrocery = new Intent(GroceryActivity.this, PantryActivity.class);
-                startActivity(intentGrocery);
+                Intent intentPantry = new Intent(GroceryActivity.this, PantryActivity.class);
+                startActivity(intentPantry);
                 finish();
                 break;
             case R.id.saveFab:
