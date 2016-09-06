@@ -154,6 +154,11 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         final Spinner mCategory = (Spinner) subView.findViewById(R.id.categorySpinner);
         final Spinner mLocation = (Spinner) subView.findViewById(R.id.locationSpinner);
 
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
+                R.array.category_spinner_array, android.R.layout.simple_spinner_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCategory.setAdapter(categoryAdapter);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.location_spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

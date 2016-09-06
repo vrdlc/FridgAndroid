@@ -160,10 +160,17 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
         final Spinner mLocation = (Spinner) subView.findViewById(R.id.locationSpinner);
 
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
+                R.array.category_spinner_array, android.R.layout.simple_spinner_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCategory.setAdapter(categoryAdapter);
+
+        ArrayAdapter<CharSequence> locationAdapter = ArrayAdapter.createFromResource(this,
                 R.array.location_spinner_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mLocation.setAdapter(adapter);
+        locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mLocation.setAdapter(locationAdapter);
+
+
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
@@ -177,26 +184,24 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
                 int locationId = mLocation.getSelectedItemPosition();
 
                 String category;
-                if (categoryId == 0) {
+                if (categoryId == 1) {
                     category = "dairy";
-                } else if (categoryId == 1) {
-                    category = "meat";
                 } else if (categoryId == 2) {
-                    category = "produce";
-                } else if (categoryId == 3) {
-                    category = "bread";
-                } else if (categoryId == 4) {
-                    category = "frozen";
-                } else if (categoryId == 5) {
                     category = "meat";
+                } else if (categoryId == 3) {
+                    category = "produce";
+                } else if (categoryId == 4) {
+                    category = "bread";
+                } else if (categoryId == 5) {
+                    category = "frozen";
                 } else if (categoryId == 6) {
-                    category = "staples";
-                } else if (categoryId == 7) {
-                    category = "household";
-                } else if (categoryId == 8) {
-                    category = "personal_care";
-                } else if (categoryId == 9) {
                     category = "canned";
+                } else if (categoryId == 7) {
+                    category = "dry_goods";
+                } else if (categoryId == 8) {
+                    category = "household";
+                } else if (categoryId == 9) {
+                    category = "personal_care";
                 } else {
                     category = "other";
                 }
