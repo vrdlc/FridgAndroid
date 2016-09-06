@@ -118,7 +118,7 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                deleteItemFromFirebase();
+                deleteItemFromFirebase();
                 Toast.makeText(mContext.getApplicationContext(), "Deleted forEVER", Toast.LENGTH_SHORT).show();
 
             }
@@ -134,14 +134,19 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
         builder.show();
     }
 
-//    public void deleteItemFromFirebase() {
-////        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-//        String id = mItem.getId();
-//        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
-//        DatabaseReference itemRef = mDatabase.getRef();
-//        DatabaseReference finalItem = itemRef.child(id);
-//        finalItem.removeValue();
-//    }
+    public void deleteItemFromFirebase() {
+//        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String id = mItem.getId();
+        if (mContext.getClass().getSimpleName().equals("GroceryActivity")) {
+
+            mDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_GROCERY);
+        } else {
+            mDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_PANTRY);
+        }
+        DatabaseReference itemRef = mDatabase.getRef();
+        DatabaseReference finalItem = itemRef.child(id);
+        finalItem.removeValue();
+    }
 
 
 }

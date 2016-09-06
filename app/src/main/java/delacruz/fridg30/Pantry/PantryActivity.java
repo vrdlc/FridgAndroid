@@ -41,6 +41,7 @@ import delacruz.fridg30.SimpleItemTouchHelperCallback;
 
 public class PantryActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private DatabaseReference mGroceryDatabase;
     private DatabaseReference mPantryDatabase;
     private ValueEventListener mValueEventListener;
 //    private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
@@ -70,6 +71,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
 
 
         // Write a message to the database
+        mGroceryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_GROCERY);
         mPantryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_PANTRY);
         setUpFirebaseAdapter();
 
@@ -219,8 +221,12 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
     public void saveItemToFirebase(String name, String quantity, String notes, String category, String list) {
 //        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
         Item item = new Item(name, quantity, notes, category, list);
-        DatabaseReference itemRef = mPantryDatabase.push();
-        String keyId = itemRef.getKey();
+        DatabaseReference itemRef;
+        if (item.getChooseLocation().equals("grocery")) {
+            itemRef = mGroceryDatabase.push();
+        } else {
+            itemRef = mPantryDatabase.push();
+        }        String keyId = itemRef.getKey();
         item.setId(keyId);
         itemRef.setValue(item);
     }
