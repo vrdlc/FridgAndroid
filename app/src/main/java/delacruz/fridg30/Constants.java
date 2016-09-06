@@ -6,7 +6,9 @@ package delacruz.fridg30;
 public class Constants {
 
 //    public static final String FIREBASE_URL = BuildConfig.FIREBASE_ROOT_URL; //Do I still need this?
-    public static final String FIREBASE_LOCATION_ITEM = "savedItem";
+//    public static final String FIREBASE_LOCATION_ITEM = "savedItem";
+    public static final String FIREBASE_LOCATION_GROCERY = "grocery";
+    public static final String FIREBASE_LOCATION_PANTRY = "pantry";
 
 //    public static final String FIREBASE_SAVED_ITEM_URL = FIREBASE_URL + "/" + FIREBASE_LOCATION_ITEM;
 

@@ -35,9 +35,16 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
+        android:id="@+id/categorySpinner"
         android:spinnerMode="dialog"
         android:layout_below="@+id/notesEditText" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/locationSpinner"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/categorySpinner" />
 
     <!--<Button-->
     <!--android:id="@+id/addToList"-->

@@ -113,15 +113,15 @@ public class FirebaseListAdapter extends FirebaseRecyclerAdapter<Item, FirebaseV
     public void onItemValueChange(int position) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         String uid = sharedPreferences.getString(Constants.KEY_UID, null);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);         //DON'T FORGET getChild(uid);
-//THIS IS CALLED IN THE SimpleItemTouchHelperCallback
-
-        String itemKey = getItem(position).getId();
-        Log.d("ItemKey", itemKey + "");
-        Map<String, Object> item = new HashMap<String, Object>();
-        item.put("chooseList", "pantry");
-        ref.child(itemKey).updateChildren(item);
-        Toast.makeText(mContext.getApplicationContext(), "Moved to Pantry List", Toast.LENGTH_SHORT).show();
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);         //DON'T FORGET getChild(uid);
+////THIS IS CALLED IN THE SimpleItemTouchHelperCallback
+//
+//        String itemKey = getItem(position).getId();
+//        Log.d("ItemKey", itemKey + "");
+//        Map<String, Object> item = new HashMap<String, Object>();
+//        item.put("chooseList", "pantry");
+//        ref.child(itemKey).updateChildren(item);
+//        Toast.makeText(mContext.getApplicationContext(), "Moved to Pantry List", Toast.LENGTH_SHORT).show();
     }
 
 

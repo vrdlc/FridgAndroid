@@ -47,6 +47,7 @@ import delacruz.fridg30.SimpleItemTouchHelperCallback;
 public class GroceryActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseReference mGroceryDatabase;
+    private DatabaseReference mPantryDatabase;
     private ValueEventListener mValueEventListener;
 //    private FirebaseRecyclerAdapter mFirebaseRecyclerAdapter;
     private FirebaseListAdapter mFirebaseListAdapter;
@@ -75,7 +76,8 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
 
 
         // Write a message to the database
-        mGroceryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
+        mGroceryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_GROCERY);
+        mPantryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_PANTRY);
         setUpFirebaseAdapter();
 
         mGroceryDatabase.addValueEventListener(new ValueEventListener() {
@@ -118,10 +120,9 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
     private void setUpFirebaseAdapter() {
 
         Query query = FirebaseDatabase.getInstance()
-                .getReference(Constants.FIREBASE_LOCATION_ITEM)
-                //MAKE NEW CONSTANT FIREBASE_LOCATION_GROCERY
+                .getReference(Constants.FIREBASE_LOCATION_GROCERY)
 //                .child(uId)
-                .orderByChild("chooseList").equalTo("grocery");
+                .orderByChild("category");
 
         mFirebaseListAdapter = new FirebaseListAdapter
                 (Item.class, R.layout.universal_list_item, FirebaseViewHolder.class,
@@ -155,13 +156,14 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
         final EditText subEditText = (EditText) subView.findViewById(R.id.nameEditText);
         final EditText subEditQuantity = (EditText) subView.findViewById(R.id.quantityEditText);
         final EditText subEditNotes = (EditText) subView.findViewById(R.id.notesEditText);
-        final Spinner mSpinner = (Spinner) subView.findViewById(R.id.spinner);
+        final Spinner mCategory = (Spinner) subView.findViewById(R.id.categorySpinner);
+        final Spinner mLocation = (Spinner) subView.findViewById(R.id.locationSpinner);
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_array, android.R.layout.simple_spinner_item);
+                R.array.location_spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);
+        mLocation.setAdapter(adapter);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
@@ -171,17 +173,43 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
                 String name = subEditText.getText().toString();
                 String quantity = subEditQuantity.getText().toString();
                 String notes = subEditNotes.getText().toString();
-                int listId = mSpinner.getSelectedItemPosition();
+                int categoryId = mCategory.getSelectedItemPosition();
+                int locationId = mLocation.getSelectedItemPosition();
 
-                String list;
-                if (listId == 0) {
-                    list = "pantry";
+                String category;
+                if (categoryId == 0) {
+                    category = "dairy";
+                } else if (categoryId == 1) {
+                    category = "meat";
+                } else if (categoryId == 2) {
+                    category = "produce";
+                } else if (categoryId == 3) {
+                    category = "bread";
+                } else if (categoryId == 4) {
+                    category = "frozen";
+                } else if (categoryId == 5) {
+                    category = "meat";
+                } else if (categoryId == 6) {
+                    category = "staples";
+                } else if (categoryId == 7) {
+                    category = "household";
+                } else if (categoryId == 8) {
+                    category = "personal_care";
+                } else if (categoryId == 9) {
+                    category = "canned";
                 } else {
-                    list = "grocery";
+                    category = "other";
                 }
-                saveItemToFirebase(name, quantity, notes, list);
 
-                Toast.makeText(getApplicationContext(), "Saved to " + list, Toast.LENGTH_SHORT).show();
+                String location;
+                if (locationId == 0) {
+                    location = "pantry";
+                } else {
+                    location = "grocery";
+                }
+                saveItemToFirebase(name, quantity, notes, category, location);
+
+                Toast.makeText(getApplicationContext(), "Saved to " + location, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -196,11 +224,15 @@ public class GroceryActivity extends AppCompatActivity implements View.OnClickLi
         builder.show();
     }
 
-    public void saveItemToFirebase(String name, String quantity, String notes, String list) {
+    public void saveItemToFirebase(String name, String quantity, String notes, String category, String location) {
 //        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-        Item item = new Item(name, quantity, notes, list);
-
-        DatabaseReference itemRef = mGroceryDatabase.push();
+        Item item = new Item(name, quantity, notes, category, location);
+        DatabaseReference itemRef;
+        if (item.getChooseLocation().equals("grocery")) {
+            itemRef = mGroceryDatabase.push();
+        } else {
+            itemRef = mPantryDatabase.push();
+        }
         String keyId = itemRef.getKey();
         item.setId(keyId);
         itemRef.setValue(item);

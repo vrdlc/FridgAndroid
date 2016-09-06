@@ -77,7 +77,13 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
             openDeleteDialog();
         } else {
             final ArrayList<Item> items = new ArrayList<>();
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
+            DatabaseReference ref;
+            if (mContext.getClass().getSimpleName().equals("GroceryActivity")) {
+                Log.d("VH If Statement", "I'm working!");
+                ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_GROCERY);
+            } else {
+                ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_PANTRY);
+            }
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
                 @Override
@@ -112,7 +118,7 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                deleteItemFromFirebase();
+//                deleteItemFromFirebase();
                 Toast.makeText(mContext.getApplicationContext(), "Deleted forEVER", Toast.LENGTH_SHORT).show();
 
             }
@@ -128,14 +134,14 @@ public class FirebaseViewHolder extends RecyclerView.ViewHolder implements View.
         builder.show();
     }
 
-    public void deleteItemFromFirebase() {
-//        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-        String id = mItem.getId();
-        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
-        DatabaseReference itemRef = mDatabase.getRef();
-        DatabaseReference finalItem = itemRef.child(id);
-        finalItem.removeValue();
-    }
+//    public void deleteItemFromFirebase() {
+////        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+//        String id = mItem.getId();
+//        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
+//        DatabaseReference itemRef = mDatabase.getRef();
+//        DatabaseReference finalItem = itemRef.child(id);
+//        finalItem.removeValue();
+//    }
 
 
 }

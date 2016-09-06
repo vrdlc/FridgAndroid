@@ -18,7 +18,8 @@ public class Item {
     private String itemQuantity;
     private String itemNotes;
     private String id;
-    private String chooseList;
+    private String chooseLocation;
+    private String category;
     private String pushId;
     private HashMap<String, Object> timestampLastChanged;
     private String index;
@@ -26,11 +27,12 @@ public class Item {
     public Item() {
     }
 
-    public Item(String item_name, String item_quantity, String item_notes, String list) {
+    public Item(String item_name, String item_quantity, String item_notes, String item_category, String location) {
         this.itemName = item_name;
         this.itemQuantity = item_quantity;
         this.itemNotes = item_notes;
-        this.chooseList = list;
+        this.category = item_category;
+        this.chooseLocation = location;
         HashMap<String, Object> timestampLastChangedObj = new HashMap<>();
         timestampLastChangedObj.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
         this.timestampLastChanged = timestampLastChangedObj;
@@ -61,12 +63,20 @@ public class Item {
         return itemNotes;
     }
 
-    public String getChooseList(){
-        return chooseList;
+    public String getItemCategory() {
+        return category;
     }
 
-    public void setChooseList(String chooseList) {
-        this.chooseList = chooseList;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getChooseLocation(){
+        return chooseLocation;
+    }
+
+    public void setChooseLocation(String chooseLocation) {
+        this.chooseLocation = chooseLocation;
     }
 
     public String getPushId() {

@@ -70,7 +70,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
 
 
         // Write a message to the database
-        mPantryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);
+        mPantryDatabase = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_PANTRY);
         setUpFirebaseAdapter();
 
         mPantryDatabase.addValueEventListener(new ValueEventListener() {
@@ -113,9 +113,9 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
     private void setUpFirebaseAdapter() {
 
         Query query = FirebaseDatabase.getInstance()
-                .getReference(Constants.FIREBASE_LOCATION_ITEM)
+                .getReference(Constants.FIREBASE_LOCATION_PANTRY)
 //                .child(uId)
-                .orderByChild("chooseList").equalTo("pantry");
+                .orderByChild("category");
 
         mFirebaseListAdapter = new PantryFirebaseListAdapter
                 (Item.class, R.layout.universal_list_item, FirebaseViewHolder.class,
@@ -149,13 +149,13 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         final EditText subEditText = (EditText) subView.findViewById(R.id.nameEditText);
         final EditText subEditQuantity = (EditText) subView.findViewById(R.id.quantityEditText);
         final EditText subEditNotes = (EditText) subView.findViewById(R.id.notesEditText);
-        final Spinner mSpinner = (Spinner) subView.findViewById(R.id.spinner);
-
+        final Spinner mCategory = (Spinner) subView.findViewById(R.id.categorySpinner);
+        final Spinner mLocation = (Spinner) subView.findViewById(R.id.locationSpinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_array, android.R.layout.simple_spinner_item);
+                R.array.location_spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);
+        mLocation.setAdapter(adapter);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
@@ -165,7 +165,33 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
                 String name = subEditText.getText().toString();
                 String quantity = subEditQuantity.getText().toString();
                 String notes = subEditNotes.getText().toString();
-                int listId = mSpinner.getSelectedItemPosition();
+                int categoryId = mCategory.getSelectedItemPosition();
+                int listId = mLocation.getSelectedItemPosition();
+
+                String category;
+                if (categoryId == 0) {
+                    category = "dairy";
+                } else if (categoryId == 1) {
+                    category = "meat";
+                } else if (categoryId == 2) {
+                    category = "produce";
+                } else if (categoryId == 3) {
+                    category = "bread";
+                } else if (categoryId == 4) {
+                    category = "frozen";
+                } else if (categoryId == 5) {
+                    category = "meat";
+                } else if (categoryId == 6) {
+                    category = "staples";
+                } else if (categoryId == 7) {
+                    category = "household";
+                } else if (categoryId == 8) {
+                    category = "personal_care";
+                } else if (categoryId == 9) {
+                    category = "canned";
+                } else {
+                    category = "other";
+                }
 
                 String list;
                 if (listId == 0) {
@@ -173,7 +199,7 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
                 } else {
                     list = "grocery";
                 }
-                saveItemToFirebase(name, quantity, notes, list);
+                saveItemToFirebase(name, quantity, notes, category, list);
 
                 Toast.makeText(getApplicationContext(), "Saved to " + list, Toast.LENGTH_SHORT).show();
 
@@ -190,10 +216,9 @@ public class PantryActivity extends AppCompatActivity implements View.OnClickLis
         builder.show();
     }
 
-    public void saveItemToFirebase(String name, String quantity, String notes, String list) {
+    public void saveItemToFirebase(String name, String quantity, String notes, String category, String list) {
 //        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-        Item item = new Item(name, quantity, notes, list);
-
+        Item item = new Item(name, quantity, notes, category, list);
         DatabaseReference itemRef = mPantryDatabase.push();
         String keyId = itemRef.getKey();
         item.setId(keyId);

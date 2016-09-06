@@ -2,7 +2,12 @@
     <string name="app_name">Fridg3.0</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name="spinner_array">
+    <string-array name="category_spinner_array">
+        <item>Add to Pantry</item>
+        <item>Add to Shopping List</item>
+    </string-array>
+
+    <string-array name="location_spinner_array">
         <item>Add to Pantry</item>
         <item>Add to Shopping List</item>
     </string-array>

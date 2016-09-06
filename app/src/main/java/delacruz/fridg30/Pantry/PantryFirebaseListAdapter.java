@@ -112,15 +112,15 @@ public class PantryFirebaseListAdapter extends FirebaseRecyclerAdapter<Item, Fir
     public void onItemValueChange(int position) {
 //        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 //        String uid = sharedPreferences.getString(Constants.KEY_UID, null);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);         //DON'T FORGET getChild(uid);
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_LOCATION_ITEM);         //DON'T FORGET getChild(uid);
 //THIS IS CALLED IN THE SimpleItemTouchHelperCallback
-
-        //CAN I MAKE THIS AN "IF" STATEMENT TO MAKE THIS FILE UNIVERSAL?
-        String itemKey = getItem(position).getId();
-        Map<String, Object> item = new HashMap<String, Object>();
-        item.put("chooseList", "grocery");
-        ref.child(itemKey).updateChildren(item);
-        Toast.makeText(mContext.getApplicationContext(), "Moved to Grocery List", Toast.LENGTH_SHORT).show();
+//
+//        //CAN I MAKE THIS AN "IF" STATEMENT TO MAKE THIS FILE UNIVERSAL?
+//        String itemKey = getItem(position).getId();
+//        Map<String, Object> item = new HashMap<String, Object>();
+//        item.put("chooseList", "grocery");
+//        ref.child(itemKey).updateChildren(item);
+//        Toast.makeText(mContext.getApplicationContext(), "Moved to Grocery List", Toast.LENGTH_SHORT).show();
     }
 
 
